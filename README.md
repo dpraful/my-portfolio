@@ -73,3 +73,4 @@ git add .
 git commit -m "Updated index.html and favicon"
 git push origin main
 npm run deploy
+////////
