@@ -16,7 +16,7 @@ const Hero = () => {
         {/* Typing Animation for Job Title */}
         <p className="subtitle">
           <Typewriter
-            words={["Software Developer", "React Native Enthusiast", "Tech Explorer"]}
+            words={["Software Developer", "FullStack Developer", "Tech Explorer", "WEB | MOBILE"]}
             loop={true}
             cursor
             cursorStyle="|"
@@ -27,7 +27,7 @@ const Hero = () => {
         </p>
 
         {/* Resume Button */}
-        <a href={resumeFile} download="Prafuldas_Resume.pdf" className="btn">
+        <a href={resumeFile} download="Prafuldas.pdf" className="btn">
           <FaDownload /> Download Resume
         </a>
 
