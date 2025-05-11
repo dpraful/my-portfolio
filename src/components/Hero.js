@@ -2,7 +2,7 @@ import React from "react";
 import { Typewriter } from "react-simple-typewriter";
 import { FaDownload, FaArrowDown } from "react-icons/fa";
 import "./Hero.css";
-import resumeFile from "../assets/resume.docx";
+import resumeFile from "../assets/resume.pdf";
 
 
 const Hero = () => {
