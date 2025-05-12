@@ -1,26 +1,43 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./Projects.css";
-import { FaShoppingCart, FaBriefcase, FaPuzzlePiece } from "react-icons/fa";
-
+import {
+  FaHospital,
+  FaClinicMedical,
+  FaStore,
+  FaBriefcase,
+  FaPuzzlePiece,
+} from "react-icons/fa";
 const projects = [
+  {
+    name: "EMR",
+    link: "https://github.com/dpraful/Jescon",
+    icon: <FaHospital className="project-icon text-red-500" />, // Hospital-themed
+    tags: ["ReactNative", "SpringBoot", "MSSql"],
+  },
+  {
+    name: "His",
+    link: "https://github.com/dpraful/Jescon",
+    icon: <FaClinicMedical className="project-icon text-blue-500" />, // Clinic-themed
+    tags: ["ReactNative", "SpringBoot", "MSSql"],
+  },
   {
     name: "E-commerce Store",
     link: "https://github.com/dpraful/EcommerceStore",
-    icon: <FaShoppingCart className="project-icon" />,
-    tags: ["React", "Node.js", "MongoDB"],
+    icon: <FaStore className="project-icon text-green-600" />, // Store-themed
+    tags: ["React", "Django", "MySql"],
   },
   {
     name: "Job Portal",
     link: "https://github.com/dpraful/JobPortal",
-    icon: <FaBriefcase className="project-icon" />,
-    tags: ["Django", "PostgreSQL", "Bootstrap"],
+    icon: <FaBriefcase className="project-icon text-indigo-600" />, // Work/job-themed
+    tags: ["Html", "Django", "MySql"],
   },
   {
-    name: "Image Puzzle Game",
+    name: "Image Game",
     link: "https://github.com/dpraful/MagicGame",
-    icon: <FaPuzzlePiece className="project-icon" />,
-    tags: ["Flutter", "Firebase", "Game Logic"],
+    icon: <FaPuzzlePiece className="project-icon text-purple-600" />, // Puzzle game-themed
+    tags: ["React", "Flask", "MSSql"],
   },
 ];
 

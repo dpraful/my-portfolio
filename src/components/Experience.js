@@ -9,12 +9,12 @@ const experiences = [
     duration: "Nov 2024 - Present",
   },
   {
-    title: "AppForms Developer",
+    title: "No-Code Developer",
     company: "Claysys Technologies",
     duration: "July 2024 - Aug 2024",
   },
   {
-    title: "Junior Developer",
+    title: "Jr.Software Developer",
     company: "Techolas Technologies",
     duration: "July 2023 - April 2024",
   },

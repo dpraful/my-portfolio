@@ -1,15 +1,27 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./Skills.css";
-import { FaPython, FaJs, FaReact, FaDatabase } from "react-icons/fa";
+import { FaPython, FaJs, FaReact, FaDatabase ,FaFileAlt} from "react-icons/fa";
 import { DiDjango } from "react-icons/di";
+import { SiFlask, SiMongodb} from "react-icons/si"; // Additional icons
 
 const skills = [
-  { name: "Python", icon: <FaPython />, level: 90 },
-  { name: "JavaScript", icon: <FaJs />, level: 85 },
-  { name: "React Native", icon: <FaReact />, level: 80 },
-  { name: "Django", icon: <DiDjango />, level: 75 },
-  { name: "MongoDB", icon: <FaDatabase />, level: 70 },
+  { name: "Python", icon: <FaPython className="text-yellow-500" />, level: 100 },
+  { name: "JavaScript", icon: <FaJs className="text-yellow-400" />, level: 100 },
+  { name: "React", icon: <FaReact className="text-cyan-500" />, level: 100 },
+  { name: "Django", icon: <DiDjango className="text-green-700" />, level: 100 },
+  { name: "Flask", icon: <SiFlask className="text-gray-600" />, level: 100 },
+  { name: "MSSQL", icon: <FaDatabase className="text-blue-600" />, level: 100 },
+  {
+    name: "MongoDB",
+    icon: <SiMongodb className="text-green-600" />,
+    level: 100,
+  },
+  {
+    name: "JasperSoft",
+    icon: <FaFileAlt className="text-purple-700" />,
+    level: 100,
+  },
 ];
 
 const Skills = () => {

@@ -38,7 +38,7 @@ const Contact = () => {
         transition={{ duration: 0.5, delay: 0.3 }}
       >
         <a href="mailto:d.praful1021@gmail.com" className="contact-item">
-          <FaEnvelope /> d.praful1021@gmail.com
+          <FaEnvelope /> d.praful@outlook.com
         </a>
         <a href="https://linkedin.com/in/prafuldasmm" target="_blank" rel="noopener noreferrer" className="contact-item">
           <FaLinkedin /> LinkedIn

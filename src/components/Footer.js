@@ -20,7 +20,7 @@ const Footer = () => {
         </nav>
 
         <div className="contact-info">
-          <p>Email: <a href="mailto:d.praful1021@gmail.com">d.praful1021@gmail.com</a></p>
+          <p>Email: <a href="mailto:d.praful@outlook.com">d.praful@outlook.com</a></p>
           <p>Location: Kerala, India</p>
         </div>
 
@@ -34,7 +34,7 @@ const Footer = () => {
           <a href="https://twitter.com/yourtwitter" target="_blank" rel="noopener noreferrer">
             <FaTwitter />
           </a>
-          <a href="mailto:d.praful1021@gmail.com">
+          <a href="mailto:d.praful@outlook.com">
             <FaEnvelope />
           </a>
         </div>
