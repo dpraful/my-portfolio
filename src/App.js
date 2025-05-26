@@ -50,7 +50,7 @@ function App() {
   return (
     <div className="app">
       <Navbar scrollToSection={scrollToSection} activeSection={activeSection} />
-      
+
       <motion.div className="sections">
         {[
           { component: <Hero />, bg: "bg-hero-pattern" },

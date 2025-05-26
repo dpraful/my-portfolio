@@ -16,7 +16,7 @@ const projects = [
     tags: ["ReactNative", "SpringBoot", "MSSql"],
   },
   {
-    name: "His",
+    name: "INSURE",
     link: "https://github.com/dpraful/Jescon",
     icon: <FaClinicMedical className="project-icon text-blue-500" />, // Clinic-themed
     tags: ["ReactNative", "SpringBoot", "MSSql"],
