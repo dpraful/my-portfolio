@@ -1,14 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import "./About.css";
-import profilePic from "../assets/images/profile.jpg";
+import { Global } from "../Common/Global";
 
 const About = ({ scrollToSection }) => {
+  const [aboutData, setAboutData] = useState(null);
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     Aos.init({ duration: 1200 });
+
+    fetch(`${Global.jsonUrl}About.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load About data");
+        return res.json();
+      })
+      .then((data) => setAboutData(data))
+      .catch((err) => {
+        console.error("About fetch error:", err);
+        setError(true);
+      });
   }, []);
+
+  if (error || !aboutData) return null;
+
+  const { title, subtitle, highlight, experience, profileImage, buttons } = aboutData;
 
   return (
     <section className="about">
@@ -20,7 +38,7 @@ const About = ({ scrollToSection }) => {
             animate={{ y: [0, -10, 0] }}
             transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
           >
-            <img src={profilePic} alt="Profile" />
+            <img src={`${Global.fileUrl}${profileImage}`} alt="Profile" />
           </motion.div>
 
           {/* About Text with Slide Animation */}
@@ -30,11 +48,12 @@ const About = ({ scrollToSection }) => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
           >
-            <h2>About Me</h2>
+            <h2>{title}</h2>
             <p>
-              I am a passionate <span>Software Developer</span> with
-              <b data-aos="fade-up"> 1+ years</b> of experience in
-              designing and developing scalable applications.
+              {subtitle.split(highlight)[0]}
+              <span>{highlight}</span>
+              {subtitle.split(highlight)[1]}
+              <b data-aos="fade-up"> {experience}</b>
             </p>
 
             {/* Animated Buttons */}
@@ -44,16 +63,27 @@ const About = ({ scrollToSection }) => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <button onClick={() => scrollToSection(4)} className="btn">
-                View My Work
-              </button>
-              <a
-                href="https://www.linkedin.com/in/prafuldasmm"
-                target="_blank"
-                className="btn btn-secondary"
-              >
-                Let's Connect
-              </a>
+              {buttons.map((btn, index) =>
+                btn.type === "scroll" ? (
+                  <button
+                    key={index}
+                    className="btn"
+                    onClick={() => scrollToSection(btn.targetSection)}
+                  >
+                    {btn.label}
+                  </button>
+                ) : (
+                  <a
+                    key={index}
+                    href={btn.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary"
+                  >
+                    {btn.label}
+                  </a>
+                )
+              )}
             </motion.div>
           </motion.div>
         </div>

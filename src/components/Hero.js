@@ -1,23 +1,74 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
-import { FaDownload, FaArrowDown } from "react-icons/fa";
 import "./Hero.css";
-import resumeFile from "../assets/resume.pdf";
-
+import { Global } from "../Common/Global";
+import Icons from "../Common/Icons";
 
 const Hero = () => {
+  const [heroData, setHeroData] = useState(null);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    fetch(`${Global.jsonUrl}Hero.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch Hero data");
+        return res.json();
+      })
+      .then((data) => setHeroData(data))
+      .catch((err) => {
+        console.error("Error loading hero data:", err);
+        setError(true);
+      });
+  }, []);
+
+  // Loading state
+  if (!heroData && !error) {
+    return (
+      <section className="hero">
+        <div className="overlay">
+          <h2>Loading...</h2>
+        </div>
+      </section>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <section className="hero">
+        <div className="overlay">
+          <h2>Failed to load hero data</h2>
+        </div>
+      </section>
+    );
+  }
+
+  const {
+    name,
+    roles,
+    resume,
+    resumeButton,
+    scrollDown,
+  } = heroData;
+
+  const ResumeIcon =
+    Icons[resumeButton.icon]
+
+  const ScrollIcon =
+    Icons[scrollDown.icon]
+
   return (
     <section className="hero">
       <div className="overlay">
         <h2 className="title">
-          Hi, I'm <span className="highlight">PRAFULDAS M M</span>
+          Hi, I'm <span className="highlight">{name}</span>
         </h2>
 
-        {/* Typing Animation for Job Title */}
+        {/* Typing Animation */}
         <p className="subtitle">
           <Typewriter
-            words={["Software Developer", "FullStack Developer", "Tech Explorer", "WEB | MOBILE"]}
-            loop={true}
+            words={roles}
+            loop
             cursor
             cursorStyle="|"
             typeSpeed={70}
@@ -27,14 +78,25 @@ const Hero = () => {
         </p>
 
         {/* Resume Button */}
-        <a href={resumeFile} download="Prafuldas.pdf" className="btn">
-          <FaDownload /> Download Resume
+        <a
+          href={`${Global.fileUrl}${resume}`}
+          download="Prafuldas.pdf"
+          className="btn"
+        >
+          <ResumeIcon
+            size={resumeButton.size || 18}
+            color={resumeButton.color || "#fff"}
+            style={{ marginRight: 8 }}
+          />
+          {resumeButton.label}
         </a>
 
-
-        {/* Scroll Down Button */}
-        <a href="#contact" className="scroll-down">
-          <FaArrowDown />
+        {/* Scroll Down */}
+        <a href={scrollDown.href} className="scroll-down">
+          <ScrollIcon
+            size={scrollDown.size || 18}
+            color={scrollDown.color || "#fff"}
+          />
         </a>
       </div>
     </section>

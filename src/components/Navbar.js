@@ -2,35 +2,59 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import "./Navbar.css";
+import { Global } from "../Common/Global";
 
 function Navbar({ scrollToSection, activeSection }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const navItems = ["Home", "About", "Skills", "Experience", "Projects", "Contact"];
+  const [navData, setNavData] = useState(null);
+  const [error, setError] = useState(false);
 
+  // 🔹 Fetch Navbar data
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    fetch(`${Global.jsonUrl}Navbar.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Navbar fetch failed");
+        return res.json();
+      })
+      .then((data) => setNavData(data))
+      .catch((err) => {
+        console.error("Error loading navbar data:", err);
+        setError(true);
+      });
+  }, []);
+
+  // 🔹 Scroll background effect
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Loading / error fallback
+  if (!navData && !error) return null;
+  if (error) return null;
+
+  const { logo, items } = navData;
+
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
-      <div className="logo">MyPortfolio</div>
-      
+      {/* Logo */}
+      <div className="logo">{logo}</div>
+
       {/* Desktop Navigation */}
       <div className="nav-items">
-        {navItems.map((item, index) => (
-          <button
+        {items.map((item, index) => (
+          <motion.button
             key={index}
             onClick={() => scrollToSection(index)}
-            className={`nav-button ${activeSection === index ? "active" : ""}`}
+            className={`nav-button ${
+              activeSection === index ? "active" : ""
+            }`}
             whileHover={{ scale: 1.1 }}
           >
             {item}
-          </button>
+          </motion.button>
         ))}
       </div>
 
@@ -52,14 +76,16 @@ function Navbar({ scrollToSection, activeSection }) {
             className="mobile-menu"
           >
             <div className="mobile-menu-content">
-              {navItems.map((item, index) => (
+              {items.map((item, index) => (
                 <motion.button
                   key={index}
                   onClick={() => {
                     scrollToSection(index);
-                    setTimeout(() => setMenuOpen(false), 500);
+                    setTimeout(() => setMenuOpen(false), 400);
                   }}
-                  className={`mobile-menu-item ${activeSection === index ? "active" : ""}`}
+                  className={`mobile-menu-item ${
+                    activeSection === index ? "active" : ""
+                  }`}
                   whileHover={{ scale: 1.1 }}
                 >
                   {item}
