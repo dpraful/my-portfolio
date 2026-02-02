@@ -1,5 +1,7 @@
 export class Global {
-    static APIURL = "https://raw.githubusercontent.com/dpraful/Assets/main/"
-    static fileUrl = `${this.APIURL}my-portfolio/files/`
-    static jsonUrl = `${this.APIURL}my-portfolio/json/`
+    static ipAddress = `raw.githubusercontent.com`
+    static user = `dpraful`
+    static repo = `my-portfolio`
+    static Url = `${this.user}/Assets/main/${this.repo}/`
 }
+export const APIURL = `http://${Global.ipAddress}/${Global.Url}`;

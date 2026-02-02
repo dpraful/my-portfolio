@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import "./Navbar.css";
-import { Global } from "../Common/Global";
+import { APIURL } from "../Common/Global";
+import { networkServiceCall } from "../Common/NetworkServiceCall";
+
 
 function Navbar({ scrollToSection, activeSection }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,19 +12,15 @@ function Navbar({ scrollToSection, activeSection }) {
   const [navData, setNavData] = useState(null);
   const [error, setError] = useState(false);
 
-  // 🔹 Fetch Navbar data
   useEffect(() => {
-    fetch(`${Global.jsonUrl}Navbar.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Navbar fetch failed");
-        return res.json();
-      })
-      .then((data) => setNavData(data))
-      .catch((err) => {
+    networkServiceCall(`${APIURL}json/Navbar.json`)
+      .then(setNavData)
+      .catch(err => {
         console.error("Error loading navbar data:", err);
         setError(true);
       });
   }, []);
+
 
   // 🔹 Scroll background effect
   useEffect(() => {
@@ -48,9 +46,8 @@ function Navbar({ scrollToSection, activeSection }) {
           <motion.button
             key={index}
             onClick={() => scrollToSection(index)}
-            className={`nav-button ${
-              activeSection === index ? "active" : ""
-            }`}
+            className={`nav-button ${activeSection === index ? "active" : ""
+              }`}
             whileHover={{ scale: 1.1 }}
           >
             {item}
@@ -83,9 +80,8 @@ function Navbar({ scrollToSection, activeSection }) {
                     scrollToSection(index);
                     setTimeout(() => setMenuOpen(false), 400);
                   }}
-                  className={`mobile-menu-item ${
-                    activeSection === index ? "active" : ""
-                  }`}
+                  className={`mobile-menu-item ${activeSection === index ? "active" : ""
+                    }`}
                   whileHover={{ scale: 1.1 }}
                 >
                   {item}

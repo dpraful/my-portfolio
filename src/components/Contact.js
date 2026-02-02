@@ -3,7 +3,9 @@ import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import Icons from "../Common/Icons"
 import "./Contact.css";
-import { Global } from "../Common/Global";
+import { APIURL } from "../Common/Global";
+import { networkServiceCall } from "../Common/NetworkServiceCall";
+
 
 const Contact = () => {
   const [contactData, setContactData] = useState(null);
@@ -17,17 +19,14 @@ const Contact = () => {
   } = useForm();
 
   useEffect(() => {
-    fetch(`${Global.jsonUrl}Contact.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load contact data");
-        return res.json();
-      })
-      .then((data) => setContactData(data))
-      .catch((err) => {
+    networkServiceCall(`${APIURL}json/Contact.json`)
+      .then(setContactData)
+      .catch(err => {
         console.error("Contact fetch error:", err);
         setError(true);
       });
   }, []);
+
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);

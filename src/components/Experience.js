@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./Experience.css";
 import Icons from "../Common/Icons";
-import { Global } from "../Common/Global";
+import { APIURL } from "../Common/Global";
+import { networkServiceCall } from "../Common/NetworkServiceCall";
+
 
 const Experience = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [experiences, setExperiences] = useState([]);
 
-  // 🔹 Fetch experience data from JSON
   useEffect(() => {
-    fetch(`${Global.jsonUrl}Experience.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load experience data");
-        return res.json();
-      })
-      .then((data) => setExperiences(data))
-      .catch((err) =>
-        console.error("Error loading experience data:", err)
-      );
+    networkServiceCall(`${APIURL}json/Experience.json`)
+      .then(setExperiences)
+      .catch(err => console.error("Error loading experience data:", err));
   }, []);
+
 
   // 🔹 Scroll animation logic
   useEffect(() => {

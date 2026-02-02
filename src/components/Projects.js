@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "./Projects.css";
-import { Global } from "../Common/Global";
 import Icons from "../Common/Icons"
+import { APIURL } from "../Common/Global";
+import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    fetch(`${Global.jsonUrl}Projects.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load projects");
-        return res.json();
-      })
-      .then((data) => setProjects(data))
-      .catch((err) => {
-        console.error("Projects fetch error:", err);
-        setError(true);
-      });
-  }, []);
+useEffect(() => {
+  networkServiceCall(`${APIURL}json/Projects.json`)
+    .then(setProjects)
+    .catch(err => {
+      console.error("Projects fetch error:", err);
+      setError(true);
+    });
+}, []);
+
 
   if (error) return null;
   if (!projects.length) return null;

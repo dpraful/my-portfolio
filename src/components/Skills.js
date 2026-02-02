@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "./Skills.css";
-import { Global } from "../Common/Global";
+import {APIURL} from "../Common/Global";
 import Icons from "../Common/Icons"
+import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 const Skills = () => {
   const [skills, setSkills] = useState([]);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    fetch(`${Global.jsonUrl}Skills.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load skills");
-        return res.json();
-      })
-      .then((data) => setSkills(data))
-      .catch((err) => {
-        console.error("Skills fetch error:", err);
-        setError(true);
-      });
-  }, []);
+ useEffect(() => {
+  networkServiceCall(`${APIURL}json/Skills.json`)
+    .then(setSkills)
+    .catch(err => {
+      console.error("Skills fetch error:", err);
+      setError(true);
+    });
+}, []);
+
 
   if (error) return null;
   if (!skills.length) return null;

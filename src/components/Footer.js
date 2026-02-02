@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./Footer.css";
-import { Global } from "../Common/Global";
+import {APIURL} from "../Common/Global";
+import { networkServiceCall } from "../Common/NetworkServiceCall";
+
+
 import Icons from "../Common/Icons";
 
 const Footer = () => {
   const [footerData, setFooterData] = useState(null);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    fetch(`${Global.jsonUrl}Footer.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load footer data");
-        return res.json();
-      })
-      .then((data) => setFooterData(data))
-      .catch((err) => {
-        console.error("Footer fetch error:", err);
-        setError(true);
-      });
-  }, []);
+useEffect(() => {
+  networkServiceCall(`${APIURL}json/Footer.json`)
+    .then(setFooterData)
+    .catch(err => {
+      console.error("Footer fetch error:", err);
+      setError(true);
+    });
+}, []);
+
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });

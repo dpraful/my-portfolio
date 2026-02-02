@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import Lottie from "react-lottie-player";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { Global } from "./Common/Global";
+import { APIURL } from "./Common/Global";
 import "./App.css";
+import { networkServiceCall } from "./Common/NetworkServiceCall";
 
 // Lazy Loaded Components
 const componentMap = {
@@ -50,24 +51,21 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [activeSection]);
 
-  // Fetch Sections Data from GitHub
   useEffect(() => {
-    fetch(`${Global.jsonUrl}App.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load App data");
-        return res.json();
+    Promise.all([
+      networkServiceCall(`${APIURL}json/loading.json`),
+      networkServiceCall(`${APIURL}json/App.json`),
+    ])
+      .then(([loadingData, appData]) => {
+        setLoadingAnimation(loadingData);
+        setSectionsData(appData.sections);
       })
-      .then((data) => setSectionsData(data.sections))
-      .catch((err) => console.error("App fetch error:", err));
+      .catch(console.error);
   }, []);
 
-  // Fetch Loading Animation JSON from GitHub
-  useEffect(() => {
-    fetch(`${Global.jsonUrl}loading.json`)
-      .then((res) => res.json())
-      .then((data) => setLoadingAnimation(data))
-      .catch((err) => console.error("Failed to load loading animation:", err));
-  }, []);
+
+
+
 
   return (
     <div className="app">
@@ -84,7 +82,7 @@ function App() {
               ref={(el) => (sectionsRef.current[index] = el)}
               className={`section`}
               style={{
-                background: `url(${Global.fileUrl}${section.bg}) no-repeat center center/cover`,
+                background: `url(${APIURL}files/${section.bg}) no-repeat center center/cover`,
               }}
               initial={{ opacity: 0, y: 100, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}

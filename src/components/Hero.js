@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
 import "./Hero.css";
-import { Global } from "../Common/Global";
+import {APIURL} from "../Common/Global";
 import Icons from "../Common/Icons";
+import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 const Hero = () => {
   const [heroData, setHeroData] = useState(null);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    fetch(`${Global.jsonUrl}Hero.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch Hero data");
-        return res.json();
-      })
-      .then((data) => setHeroData(data))
-      .catch((err) => {
-        console.error("Error loading hero data:", err);
-        setError(true);
-      });
-  }, []);
+useEffect(() => {
+  networkServiceCall(`${APIURL}json/Hero.json`)
+    .then(setHeroData)
+    .catch(err => {
+      console.error("Error loading hero data:", err);
+      setError(true);
+    });
+}, []);
+
 
   // Loading state
   if (!heroData && !error) {
@@ -79,7 +77,7 @@ const Hero = () => {
 
         {/* Resume Button */}
         <a
-          href={`${Global.fileUrl}${resume}`}
+          href={`${APIURL}files/${resume}`}
           download="Prafuldas.pdf"
           className="btn"
         >

@@ -3,26 +3,24 @@ import { motion } from "framer-motion";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import "./About.css";
-import { Global } from "../Common/Global";
+import { APIURL } from "../Common/Global";
+import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 const About = ({ scrollToSection }) => {
   const [aboutData, setAboutData] = useState(null);
   const [error, setError] = useState(false);
-
   useEffect(() => {
     Aos.init({ duration: 1200 });
 
-    fetch(`${Global.jsonUrl}About.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load About data");
-        return res.json();
-      })
-      .then((data) => setAboutData(data))
-      .catch((err) => {
+    networkServiceCall(`${APIURL}json/About.json`)
+      .then(setAboutData)
+      .catch(err => {
         console.error("About fetch error:", err);
         setError(true);
       });
   }, []);
+
+
 
   if (error || !aboutData) return null;
 
@@ -38,7 +36,7 @@ const About = ({ scrollToSection }) => {
             animate={{ y: [0, -10, 0] }}
             transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
           >
-            <img src={`${Global.fileUrl}${profileImage}`} alt="Profile" />
+            <img src={`${APIURL}files/${profileImage}`} alt="Profile" />
           </motion.div>
 
           {/* About Text with Slide Animation */}
