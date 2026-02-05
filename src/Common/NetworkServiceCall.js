@@ -1,6 +1,7 @@
 // networkServiceCall.js
 
 export const networkServiceCall = async (url, options = {}) => {
+  console.log(`Making request to: ${url} with options:`, options);
   try {
     const response = await fetch(url, {
       headers: {

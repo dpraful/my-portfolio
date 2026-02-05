@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "./Skills.css";
-import {APIURL} from "../Common/Global";
-import Icons from "../Common/Icons"
+import { APIURL } from "../Common/Global";
+import Icons from "../Common/Icons";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 const Skills = () => {
   const [skills, setSkills] = useState([]);
   const [error, setError] = useState(false);
 
- useEffect(() => {
-  networkServiceCall(`${APIURL}json/Skills.json`)
-    .then(setSkills)
-    .catch(err => {
-      console.error("Skills fetch error:", err);
-      setError(true);
-    });
-}, []);
+  // 🔹 Fetch skills data
+  useEffect(() => {
+    networkServiceCall(`${APIURL}json/Skills.json`)
+      .then(setSkills)
+      .catch((err) => {
+        console.error("Skills fetch error:", err);
+        setError(true);
+      });
+  }, []);
 
+  // 🔹 Redirect handler
+  const handleRedirect = (url) => {
+    if (!url) return;
+    window.open(url, "_blank"); // open in new tab
+  };
 
-  if (error) return null;
-  if (!skills.length) return null;
+  if (error || !skills.length) return null;
 
   return (
     <section className="skills">
@@ -28,7 +33,8 @@ const Skills = () => {
 
       <div className="skills-container">
         {skills.map((skill, index) => {
-          const IconComponent = Icons[skill.icon]; // 🔹 Get icon dynamically
+          const IconComponent = Icons[skill.icon];
+
           return (
             <motion.div
               key={index}
@@ -37,9 +43,18 @@ const Skills = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ scale: 1.08 }}
+              onClick={() => handleRedirect(skill.url)}
+              style={{ cursor: "pointer" }}
             >
               <div className="skill-icon">
-                {IconComponent ? <IconComponent style={{ fontSize: "30px", color: skill.color || "#000" }} /> : null}
+                {IconComponent && (
+                  <IconComponent
+                    style={{
+                      fontSize: "30px",
+                      color: skill.color || "#000",
+                    }}
+                  />
+                )}
               </div>
 
               <p>{skill.name}</p>

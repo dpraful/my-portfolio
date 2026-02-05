@@ -4,17 +4,18 @@ import Icons from "../Common/Icons";
 import { APIURL } from "../Common/Global";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 
-
 const Experience = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [experiences, setExperiences] = useState([]);
 
+  // 🔹 Fetch experience data
   useEffect(() => {
     networkServiceCall(`${APIURL}json/Experience.json`)
       .then(setExperiences)
-      .catch(err => console.error("Error loading experience data:", err));
+      .catch((err) =>
+        console.error("Error loading experience data:", err)
+      );
   }, []);
-
 
   // 🔹 Scroll animation logic
   useEffect(() => {
@@ -36,24 +37,37 @@ const Experience = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 🔹 Redirect handler
+  const handleRedirect = (url) => {
+    if (!url) return;
+    window.open(url, "_blank"); // open in new tab
+  };
+
   return (
     <section className={`experience ${isVisible ? "visible" : ""}`}>
       <h2>Experience</h2>
 
       <div className="timeline">
         {experiences.map((exp, index) => {
-          const IconComponent = Icons[exp.icon]
+          const IconComponent = Icons[exp.icon];
+
           return (
             <div
               key={index}
               className="timeline-item"
-              style={{ animationDelay: `${index * 0.3}s` }}
+              style={{
+                animationDelay: `${index * 0.3}s`,
+                cursor: "pointer",
+              }}
+              onClick={() => handleRedirect(exp.url)}
             >
               <div className="timeline-icon">
-                <IconComponent
-                  size={20}
-                  color={exp.iconColor || "#333"}
-                />
+                {IconComponent && (
+                  <IconComponent
+                    size={20}
+                    color={exp.iconColor || "#333"}
+                  />
+                )}
               </div>
 
               <div className="timeline-content">
