@@ -6,6 +6,8 @@ import Experience from '../components/Experience';
 import Projects from '../components/Projects';
 import Contact from '../components/Contact';
 import ProjectDetails from '../screens/ProjectDetails';
+import Education from '../components/Education';
+import Achievements from '../components/Achievements';
 
 function HView(props) {
     const components = {
@@ -15,6 +17,8 @@ function HView(props) {
         Experience: Experience,
         Projects: Projects,
         Contact: Contact,
+        Education: Education,
+        Achievements: Achievements,
         ProjectDetails: ProjectDetails,
     };
 

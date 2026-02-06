@@ -35,15 +35,6 @@ useEffect(() => {
           &copy; {new Date().getFullYear()} {name}. All rights reserved.
         </p>
 
-        {/* Footer Navigation */}
-        <nav className="footer-nav">
-          {nav.map((item, index) => (
-            <a key={index} href={item.href}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
         {/* Contact Info */}
         <div className="contact-info">
           <p>

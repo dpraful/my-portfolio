@@ -1,0 +1,107 @@
+.achievements {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: url("https://source.unsplash.com/1600x900/?technology,coding") no-repeat center center/cover;
+  color: white;
+}
+
+.achievements h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #ffcc00;
+}
+
+.achievements-section {
+  padding: 20px;
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* 5 columns × 3 rows grid */
+.achievements-table {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 150px;
+  /* fixed row height */
+  gap: 20px;
+}
+
+/* Each achievement card */
+.achievement-card {
+  background: rgba(255, 255, 255, 0.08);
+  /* Transparent glass effect */
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  /* Smooth blur effect */
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.achievement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.achievement-info h4 {
+  font-size: 0.9rem;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  word-break: break-word;
+}
+
+/* Full Image Preview */
+.image-preview-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.image-preview-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.image-preview-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.close-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
