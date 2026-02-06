@@ -3,25 +3,30 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Icons from "../Common/Icons";
 import "./ProjectDetails.css";
+import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 const ProjectDetails = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const [screens, setScreens] = useState([]);
+  const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [previewImage, setPreviewImage] = useState(null);
 
   const BackIcon = Icons["FaArrowLeft"];
   const CloseIcon = Icons["FaTimes"];
 
+  // 🔹 Fetch project data
   useEffect(() => {
     if (!state?.jsonUrl) return;
 
-    fetch(state.jsonUrl)
-      .then((res) => res.json())
-      .then((data) => setScreens(data))
-      .catch((err) => console.error(err))
+    setLoading(true);
+
+    networkServiceCall(state.jsonUrl)
+      .then(setProject)
+      .catch((err) =>
+        console.error("Error loading project data:", err)
+      )
       .finally(() => setLoading(false));
   }, [state]);
 
@@ -47,11 +52,48 @@ const ProjectDetails = () => {
         </button>
       </div>
 
-      {loading && <p className="loading-text">Loading screens...</p>}
+      {loading && <p className="loading-text">Loading project...</p>}
+
+      {/* Project Meta */}
+      {project && (
+        <div className="project-meta">
+          <p className="project-description">
+            {project.description}
+          </p>
+
+          <div className="project-actions">
+            <span className="project-status">
+              🟢 {project.status}
+            </span>
+
+            <div className="project-links">
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  🚀 Demo
+                </a>
+              )}
+
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  💻 GitHub
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Screens */}
       <div className="screens-container">
-        {screens.map((item, index) => {
+        {project?.imageurl?.map((item, index) => {
           const IconComponent = Icons[item.icon];
 
           return (
