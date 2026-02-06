@@ -123,14 +123,6 @@ body {
   }
 }
 
-/* 🔹 Background Patterns */
-.bg-hero-pattern { background: url("https://raw.githubusercontent.com/dpraful/Assets/main/my-portfolio/files/hero-bg.jpg") no-repeat center center/cover; }
-.bg-about-pattern { background: url("https://raw.githubusercontent.com/dpraful/Assets/main/my-portfolio/files/about-bg.jpg") no-repeat center center/cover; }
-.bg-skills-pattern { background: url("https://raw.githubusercontent.com/dpraful/Assets/main/my-portfolio/files/skills-bg.jpg") no-repeat center center/cover; }
-.bg-experience-pattern { background: url("https://raw.githubusercontent.com/dpraful/Assets/main/my-portfolio/files/experience-bg.jpg") no-repeat center center/cover; }
-.bg-projects-pattern { background: url("https://raw.githubusercontent.com/dpraful/Assets/main/my-portfolio/files/projects-bg.jpg") no-repeat center center/cover; }
-.bg-contact-pattern { background: url("https://raw.githubusercontent.com/dpraful/Assets/main/my-portfolio/files/contact-bg.jpg") no-repeat center center/cover; }
-
 /* 🔹 Glassmorphism Cards */
 .card {
   background: rgba(255, 255, 255, 0.1);
