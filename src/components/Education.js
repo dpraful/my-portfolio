@@ -5,9 +5,7 @@ import { APIURL } from "../Common/Global";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 const Education = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [experiences, setExperiences] = useState([]);
-
   // 🔹 Fetch experience data
   useEffect(() => {
     networkServiceCall(`${APIURL}json/Education.json`)
@@ -17,25 +15,6 @@ const Education = () => {
       );
   }, []);
 
-  // 🔹 Scroll animation logic
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = document.querySelector(".education");
-      if (!section) return;
-
-      const top = section.getBoundingClientRect().top;
-      const windowHeight = window.innerHeight;
-
-      if (top < windowHeight - 100) {
-        setIsVisible(true);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // trigger once on load
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // 🔹 Redirect handler
   const handleRedirect = (url) => {
