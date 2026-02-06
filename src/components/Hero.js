@@ -52,8 +52,6 @@ useEffect(() => {
   const ResumeIcon =
     Icons[resumeButton.icon]
 
-  const ScrollIcon =
-    Icons[scrollDown.icon]
 
   return (
     <section className="hero">
@@ -89,13 +87,6 @@ useEffect(() => {
           {resumeButton.label}
         </a>
 
-        {/* Scroll Down */}
-        <a href={scrollDown.href} className="scroll-down">
-          <ScrollIcon
-            size={scrollDown.size || 18}
-            color={scrollDown.color || "#fff"}
-          />
-        </a>
       </div>
     </section>
   );
