@@ -8,18 +8,13 @@ import { networkServiceCall } from "../Common/NetworkServiceCall";
 function Navbar({ scrollToSection, activeSection }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [sections, setSections] = useState([]);
+  const [data, setData] = useState(null);
   const [error, setError] = useState(false);
 
-  // 🔹 Load sections from App.json
+  // 🔹 Load navbar data from Navbar.json
   useEffect(() => {
-    networkServiceCall(`${APIURL}json/App.json`)
-      .then((data) => {
-        const enabledSections = data.sections.filter(
-          (section) => section.enabled
-        );
-        setSections(enabledSections);
-      })
+    networkServiceCall(`${APIURL}json/Navbar.json`)
+      .then((res) => setData(res))
       .catch((err) => {
         console.error("Error loading navbar data:", err);
         setError(true);
@@ -33,16 +28,19 @@ function Navbar({ scrollToSection, activeSection }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (error || !sections.length) return null;
+  if (error || !data) return null;
+
+  // 🔹 Pre-filter enabled sections
+  const enabledSections = data.sections.filter((section) => section.enabled);
 
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       {/* Logo */}
-      <div className="logo">PRAFULDAS M M</div>
+      <div className="logo">{data.logo}</div>
 
       {/* Desktop Navigation */}
       <div className="nav-items">
-        {sections.map((section, index) => (
+        {enabledSections.map((section, index) => (
           <motion.button
             key={section.name}
             onClick={() => scrollToSection(index)}
@@ -74,7 +72,7 @@ function Navbar({ scrollToSection, activeSection }) {
             className="mobile-menu"
           >
             <div className="mobile-menu-content">
-              {sections.map((section, index) => (
+              {enabledSections.map((section, index) => (
                 <motion.button
                   key={section.name}
                   onClick={() => {

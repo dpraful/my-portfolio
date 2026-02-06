@@ -53,7 +53,7 @@ const Dashboard = () => {
     useEffect(() => {
         Promise.all([
             networkServiceCall(`${APIURL}json/loading.json`),
-            networkServiceCall(`${APIURL}json/App.json`),
+            networkServiceCall(`${APIURL}json/Navbar.json`),
         ])
             .then(([loadingData, appData]) => {
                 setLoadingAnimation(loadingData);
