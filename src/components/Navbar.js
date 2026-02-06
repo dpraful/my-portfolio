@@ -5,22 +5,26 @@ import "./Navbar.css";
 import { APIURL } from "../Common/Global";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 
-
 function Navbar({ scrollToSection, activeSection }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [navData, setNavData] = useState(null);
+  const [sections, setSections] = useState([]);
   const [error, setError] = useState(false);
 
+  // 🔹 Load sections from App.json
   useEffect(() => {
-    networkServiceCall(`${APIURL}json/Navbar.json`)
-      .then(setNavData)
-      .catch(err => {
+    networkServiceCall(`${APIURL}json/App.json`)
+      .then((data) => {
+        const enabledSections = data.sections.filter(
+          (section) => section.enabled
+        );
+        setSections(enabledSections);
+      })
+      .catch((err) => {
         console.error("Error loading navbar data:", err);
         setError(true);
       });
   }, []);
-
 
   // 🔹 Scroll background effect
   useEffect(() => {
@@ -29,28 +33,25 @@ function Navbar({ scrollToSection, activeSection }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Loading / error fallback
-  if (!navData && !error) return null;
-  if (error) return null;
-
-  const { logo, items } = navData;
+  if (error || !sections.length) return null;
 
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       {/* Logo */}
-      <div className="logo">{logo}</div>
+      <div className="logo">PRAFULDAS M M</div>
 
       {/* Desktop Navigation */}
       <div className="nav-items">
-        {items.map((item, index) => (
+        {sections.map((section, index) => (
           <motion.button
-            key={index}
+            key={section.name}
             onClick={() => scrollToSection(index)}
-            className={`nav-button ${activeSection === index ? "active" : ""
-              }`}
+            className={`nav-button ${
+              activeSection === index ? "active" : ""
+            }`}
             whileHover={{ scale: 1.1 }}
           >
-            {item}
+            {section.name}
           </motion.button>
         ))}
       </div>
@@ -73,18 +74,19 @@ function Navbar({ scrollToSection, activeSection }) {
             className="mobile-menu"
           >
             <div className="mobile-menu-content">
-              {items.map((item, index) => (
+              {sections.map((section, index) => (
                 <motion.button
-                  key={index}
+                  key={section.name}
                   onClick={() => {
                     scrollToSection(index);
                     setTimeout(() => setMenuOpen(false), 400);
                   }}
-                  className={`mobile-menu-item ${activeSection === index ? "active" : ""
-                    }`}
+                  className={`mobile-menu-item ${
+                    activeSection === index ? "active" : ""
+                  }`}
                   whileHover={{ scale: 1.1 }}
                 >
-                  {item}
+                  {section.name}
                 </motion.button>
               ))}
             </div>
