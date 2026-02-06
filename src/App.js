@@ -1,11 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import PageNavigation from "./Common/PageNavigation";
 import "./App.css";
 
 function App() {
   return (
-    <Router basename="/my-portfolio">
+    <Router>
       <PageNavigation />
     </Router>
   );
