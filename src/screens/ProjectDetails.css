@@ -1,0 +1,178 @@
+.project-details {
+  padding: 2.5rem 1.5rem;
+  max-width: 1200px;
+  margin: auto;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+/* Header */
+.project-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem;
+}
+
+.project-details h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Back button */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: #555;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 6px 10px;
+  transition: all 0.25s ease;
+}
+
+.back-btn svg {
+  font-size: 1rem;
+}
+
+.back-btn:hover {
+  color: #000;
+  transform: translateX(-3px);
+}
+
+.back-btn:hover svg {
+  transform: translateX(-3px);
+  transition: transform 0.25s ease;
+}
+
+/* Loading */
+.loading-text {
+  color: #666;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+/* Grid */
+.screens-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.8rem;
+  margin-top: 1.5rem;
+}
+
+/* Card */
+.screen-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.screen-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* 🔥 FIXED IMAGE BEHAVIOR */
+.screen-card img {
+  width: 100%;
+  height: auto;              
+  max-height: 240px;        
+  object-fit: contain;      
+  background: #f5f5f5;
+}
+
+/* Info */
+.screen-info {
+  padding: 1.1rem 1.2rem 1.4rem;
+}
+
+.screen-info h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #222;
+}
+
+.screen-info h3 svg {
+  font-size: 1.2rem;
+  color: #4f46e5;
+}
+
+.screen-info p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .project-details {
+    padding: 1.8rem 1rem;
+  }
+
+  .project-details h2 {
+    font-size: 1.7rem;
+  }
+
+  /* 📱 Mobile screenshots fully visible */
+  .screen-card img {
+    max-height: 420px;
+  }
+}
+
+/* Image click hint */
+.image-wrapper {
+  cursor: zoom-in;
+}
+
+/* Full preview overlay */
+.image-preview-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Preview content */
+.image-preview-content {
+  position: relative;
+  max-width: 95%;
+  max-height: 95%;
+}
+
+/* ✅ FULL IMAGE PREVIEW FIX */
+.image-preview-content img {
+  max-width: 100%;
+  max-height: 85vh;       
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  object-fit: contain;    
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
