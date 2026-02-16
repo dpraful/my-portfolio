@@ -55,12 +55,9 @@ const Hero = () => {
   return (
     <section className="hero">
 
-      {/* ⭐ 3D Background */}
-      <div className="model-container">
-        {modelUrl && <Model3D modelUrl={modelUrl} />}
-      </div>
-
       <div className="overlay">
+        {modelUrl && <Model3D modelUrl={modelUrl} />}
+
         <h2 className="title">
           Hi, I'm <span className="highlight">{name}</span>
         </h2>
