@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import "./About.css";
+import "./styles/About.css";
 import { APIURL } from "../Common/Global";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 

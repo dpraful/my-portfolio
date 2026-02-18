@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import "./Navbar.css";
+import "./styles/Navbar.css";
 import { APIURL } from "../Common/Global";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 
@@ -44,9 +44,8 @@ function Navbar({ scrollToSection, activeSection }) {
           <motion.button
             key={section.name}
             onClick={() => scrollToSection(index)}
-            className={`nav-button ${
-              activeSection === index ? "active" : ""
-            }`}
+            className={`nav-button ${activeSection === index ? "active" : ""
+              }`}
             whileHover={{ scale: 1.1 }}
           >
             {section.name}
@@ -79,9 +78,8 @@ function Navbar({ scrollToSection, activeSection }) {
                     scrollToSection(index);
                     setTimeout(() => setMenuOpen(false), 400);
                   }}
-                  className={`mobile-menu-item ${
-                    activeSection === index ? "active" : ""
-                  }`}
+                  className={`mobile-menu-item ${activeSection === index ? "active" : ""
+                    }`}
                   whileHover={{ scale: 1.1 }}
                 >
                   {section.name}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
-import "./Hero.css";
+import "./styles/Hero.css";
 import { APIURL } from "../Common/Global";
 import Icons from "../Common/Icons";
 import { networkServiceCall } from "../Common/NetworkServiceCall";

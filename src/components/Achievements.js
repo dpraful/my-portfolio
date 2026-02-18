@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Icons from "../Common/Icons";
-import "./Achievements.css";
+import "./styles/Achievements.css";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 import { APIURL } from "../Common/Global";
 

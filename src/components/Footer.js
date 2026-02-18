@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./Footer.css";
-import {APIURL} from "../Common/Global";
+import "./styles/Footer.css";
+import { APIURL } from "../Common/Global";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 
@@ -10,14 +10,14 @@ const Footer = () => {
   const [footerData, setFooterData] = useState(null);
   const [error, setError] = useState(false);
 
-useEffect(() => {
-  networkServiceCall(`${APIURL}json/Footer.json`)
-    .then(setFooterData)
-    .catch(err => {
-      console.error("Footer fetch error:", err);
-      setError(true);
-    });
-}, []);
+  useEffect(() => {
+    networkServiceCall(`${APIURL}json/Footer.json`)
+      .then(setFooterData)
+      .catch(err => {
+        console.error("Footer fetch error:", err);
+        setError(true);
+      });
+  }, []);
 
 
   const scrollToTop = () => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Education.css";
+import "./styles/Education.css";
 import Icons from "../Common/Icons";
 import { APIURL } from "../Common/Global";
 import { networkServiceCall } from "../Common/NetworkServiceCall";

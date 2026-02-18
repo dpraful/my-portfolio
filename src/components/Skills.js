@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import "./Skills.css";
+import "./styles/Skills.css";
 import { APIURL } from "../Common/Global";
 import Icons from "../Common/Icons";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
