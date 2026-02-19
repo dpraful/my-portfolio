@@ -9,10 +9,6 @@ import Model3D from "../Common/3Dmodel";
 const Hero = () => {
   const [heroData, setHeroData] = useState(null);
   const [error, setError] = useState(false);
-  const [windowDimensions, setWindowDimensions] = useState({
-    height: window.innerHeight,
-    width: window.innerWidth
-  });
 
   useEffect(() => {
     networkServiceCall(`${APIURL}json/Hero.json`)
@@ -21,25 +17,12 @@ const Hero = () => {
         console.error("Error loading hero data:", err);
         setError(true);
       });
-
-    // Handle window resize
-    const handleResize = () => {
-      setWindowDimensions({
-        height: window.innerHeight,
-        width: window.innerWidth
-      });
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Loading state
   if (!heroData && !error) {
     return (
-      <section className="hero" style={{ height: windowDimensions.height }}>
+      <section className="hero">
         <div className="overlay">
           <h2>Loading...</h2>
         </div>
@@ -50,7 +33,7 @@ const Hero = () => {
   // Error state
   if (error) {
     return (
-      <section className="hero" style={{ height: windowDimensions.height }}>
+      <section className="hero">
         <div className="overlay">
           <h2>Failed to load hero data</h2>
         </div>
@@ -70,43 +53,43 @@ const Hero = () => {
   const ResumeIcon = Icons[resumeButton.icon];
 
   return (
-    <section className="hero" style={{ height: windowDimensions.height }}>
+    <section className="hero">
+
       <div className="overlay">
         {modelUrl && <Model3D modelUrl={modelUrl} />}
 
-        <div className="hero-content">
-          <h2 className="title">
-            Hi, I'm <span className="highlight">{name}</span>
-          </h2>
+        <h2 className="title">
+          Hi, I'm <span className="highlight">{name}</span>
+        </h2>
 
-          {/* Typing Animation */}
-          <p className="subtitle">
-            <Typewriter
-              words={roles}
-              loop
-              cursor
-              cursorStyle="|"
-              typeSpeed={70}
-              deleteSpeed={50}
-              delaySpeed={1000}
-            />
-          </p>
+        {/* Typing Animation */}
+        <p className="subtitle">
+          <Typewriter
+            words={roles}
+            loop
+            cursor
+            cursorStyle="|"
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1000}
+          />
+        </p>
 
-          {/* Resume Button */}
-          <a
-            href={`${APIURL}files/${resume}`}
-            download="Prafuldas.pdf"
-            className="btn"
-          >
-            <ResumeIcon
-              size={resumeButton.size || 18}
-              color={resumeButton.color || "#fff"}
-              style={{ marginRight: 8 }}
-            />
-            {resumeButton.label}
-          </a>
-        </div>
+        {/* Resume Button */}
+        <a
+          href={`${APIURL}files/${resume}`}
+          download="Prafuldas.pdf"
+          className="btn"
+        >
+          <ResumeIcon
+            size={resumeButton.size || 18}
+            color={resumeButton.color || "#fff"}
+            style={{ marginRight: 8 }}
+          />
+          {resumeButton.label}
+        </a>
       </div>
+
     </section>
   );
 };
