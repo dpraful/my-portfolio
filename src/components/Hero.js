@@ -56,8 +56,9 @@ const Hero = () => {
     <section className="hero">
 
       <div className="overlay">
-        {modelUrl && <Model3D modelUrl={modelUrl} />}
-
+        <div className="model-container">
+          {modelUrl && <Model3D modelUrl={modelUrl} />}
+        </div>
         <h2 className="title">
           Hi, I'm <span className="highlight">{name}</span>
         </h2>
