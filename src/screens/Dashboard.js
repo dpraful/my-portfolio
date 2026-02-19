@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, lazy, Suspense } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { APIURL } from "../Common/Global";

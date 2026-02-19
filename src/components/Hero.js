@@ -46,8 +46,8 @@ const Hero = () => {
     roles,
     resume,
     resumeButton,
-    scrollDown,
-    ["3Dmodels"]: modelUrl
+    // eslint-disable-next-line no-useless-computed-key
+    ["3Dmodels"]: modelData
   } = heroData;
 
   const ResumeIcon = Icons[resumeButton.icon];
@@ -57,7 +57,7 @@ const Hero = () => {
 
       <div className="overlay">
         <div className="model-container">
-          {modelUrl && <Model3D modelUrl={modelUrl} />}
+          {modelData && <Model3D Data={modelData} />}
         </div>
         <h2 className="title">
           Hi, I'm <span className="highlight">{name}</span>

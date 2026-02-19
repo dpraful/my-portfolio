@@ -18,33 +18,62 @@ function Model({ url }) {
     return <primitive object={scene} />;
 }
 
-export default function Model3D({ modelUrl }) {
+export default function Model3D({ Data }) {
+    console.log("Config:", Data);
+
+    if (!Data) return null;
+
     return (
-        <Canvas
-            camera={{
-                position: [0, 5, 0],
-                fov: 50
-            }}
-        >
-            <ambientLight intensity={0.7} />
-            <directionalLight position={[3, 3, 3]} intensity={2} />
+        <Canvas camera={Data.camera}>
+            {/* Lights */}
+            {Data.lights?.ambient?.enabled && (
+                <ambientLight intensity={Data.lights.ambient.intensity} />
+            )}
+
+            {Data.lights?.directional?.enabled && (
+                <directionalLight
+                    position={Data.lights.directional.position}
+                    intensity={Data.lights.directional.intensity}
+                />
+            )}
 
             <Suspense fallback={null}>
-                <Bounds fit clip observe margin={2}>
-                    <Float speed={2} rotationIntensity={1} floatIntensity={2}>
-                        <Model url={modelUrl} />
-                    </Float>
-                </Bounds>
+                {Data.bounds?.enabled ? (
+                    <Bounds
+                        fit={Data.bounds.fit}
+                        clip={Data.bounds.clip}
+                        observe={Data.bounds.observe}
+                        margin={Data.bounds.margin}
+                    >
+                        {Data.float?.enabled ? (
+                            <Float
+                                speed={Data.float.speed}
+                                rotationIntensity={Data.float.rotationIntensity}
+                                floatIntensity={Data.float.floatIntensity}
+                            >
+                                <Model url={Data.model.url} />
+                            </Float>
+                        ) : (
+                            <Model url={Data.model.url} />
+                        )}
+                    </Bounds>
+                ) : (
+                    <Model url={Data.model.url} />
+                )}
 
-                <Environment preset="city" />
+                {Data.environment?.enabled && (
+                    <Environment preset={Data.environment.preset} />
+                )}
             </Suspense>
 
-            <OrbitControls
-                target={[0, 0, 0]}
-                enablePan={false}
-                maxPolarAngle={Math.PI / 2}
-                minPolarAngle={0}
-            />
+            {Data.orbitControls?.enabled && (
+                <OrbitControls
+                    target={Data.orbitControls.target}
+                    enablePan={Data.orbitControls.enablePan}
+                    maxPolarAngle={Data.orbitControls.maxPolarAngle}
+                    minPolarAngle={Data.orbitControls.minPolarAngle}
+                />
+            )}
         </Canvas>
     );
 }

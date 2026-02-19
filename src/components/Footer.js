@@ -26,7 +26,7 @@ const Footer = () => {
 
   if (error || !footerData) return null;
 
-  const { name, location, email, nav, socials } = footerData;
+  const { name, location, email, socials } = footerData;
 
   return (
     <footer className="footer">
