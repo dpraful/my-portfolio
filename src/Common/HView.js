@@ -8,6 +8,7 @@ import Contact from '../components/Contact';
 import ProjectDetails from '../screens/ProjectDetails';
 import Education from '../components/Education';
 import Achievements from '../components/Achievements';
+import Splash from '../screens/Splash';
 
 function HView(props) {
     const components = {
@@ -20,6 +21,7 @@ function HView(props) {
         Education: Education,
         Achievements: Achievements,
         ProjectDetails: ProjectDetails,
+        Splash:Splash,
     };
 
     const ViewHOCComponent = typeof components[props.component] !== "undefined" ? components[props.component] : null;

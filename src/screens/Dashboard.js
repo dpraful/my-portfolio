@@ -5,6 +5,7 @@ import { APIURL } from "../Common/Global";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 import { WrappedComponent } from "../Navigation/WrappedComponent";
 import "./Dashboard.css";
+import HView from "../Common/HView";
 
 const Dashboard = () => {
     const sectionsRef = useRef([]);
@@ -74,13 +75,17 @@ const Dashboard = () => {
                 return Promise.all(bgUrls.map(preloadImage)).then(() => {
                     if (cancelled) return;
                     setSectionsData(sections);
-                    setIsAppReady(true);
+                    setTimeout(() => {
+                        setIsAppReady(true);
+                    }, 3500);
                 });
             })
             .catch((error) => {
                 console.error(error);
                 if (!cancelled) {
-                    setIsAppReady(true);
+                    setTimeout(() => {
+                        setIsAppReady(true);
+                    }, 3500);
                 }
             });
 
@@ -91,14 +96,7 @@ const Dashboard = () => {
 
     if (!isAppReady) {
         return (
-            <div className="dashboard-loading-screen">
-                <div className="dashboard-loading-card">
-                    <div className="loader-dot"></div>
-                    <div className="loader-dot"></div>
-                    <div className="loader-dot"></div>
-                    <p>Preparing portfolio...</p>
-                </div>
-            </div>
+            <HView component={'Splash'} />
         );
     }
 

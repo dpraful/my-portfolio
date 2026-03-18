@@ -15,10 +15,6 @@ const Splash = () => {
       i++;
       if (i === title.length) clearInterval(typing);
     }, 120);
-
-    setTimeout(() => {
-      navigate("/dashboard");
-    }, 3500);
   }, [navigate]);
 
   return (

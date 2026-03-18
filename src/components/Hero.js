@@ -5,6 +5,7 @@ import { APIURL } from "../Common/Global";
 import Icons from "../Common/Icons";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 import Model3D from "../Common/3Dmodel";
+import { Loader } from "lucide-react";
 
 const Hero = () => {
   const [heroData, setHeroData] = useState(null);
@@ -22,11 +23,7 @@ const Hero = () => {
   // Loading state
   if (!heroData && !error) {
     return (
-      <section className="hero">
-        <div className="overlay">
-          <h2>Loading...</h2>
-        </div>
-      </section>
+      <Loader size={50} className="hero-loader" />
     );
   }
 
