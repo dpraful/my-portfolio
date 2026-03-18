@@ -8,7 +8,7 @@ import Contact from '../components/Contact';
 import ProjectDetails from '../screens/ProjectDetails';
 import Education from '../components/Education';
 import Achievements from '../components/Achievements';
-import Splash from '../screens/Splash';
+import Splash from '../components/Splash';
 
 function HView(props) {
     const components = {
