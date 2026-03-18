@@ -10,7 +10,14 @@ const Dashboard = () => {
     const sectionsRef = useRef([]);
     const [activeSection, setActiveSection] = useState(0);
     const [sectionsData, setSectionsData] = useState([]);
-    const [loadingAnimation, setLoadingAnimation] = useState(null);
+    const [isAppReady, setIsAppReady] = useState(false);
+
+    const preloadImage = (url) =>
+        new Promise((resolve) => {
+            const img = new Image();
+            img.src = url;
+            img.onload = img.onerror = () => resolve();
+        });
 
     /* Scroll to Section */
     const scrollToSection = (index) => {
@@ -49,18 +56,52 @@ const Dashboard = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [activeSection]);
 
-    /* Load Backend Data */
+    /* Load Backend Data and preload backgrounds */
     useEffect(() => {
+        let cancelled = false;
+
         Promise.all([
             networkServiceCall(`${APIURL}json/loading.json`),
             networkServiceCall(`${APIURL}json/Navbar.json`),
         ])
             .then(([loadingData, appData]) => {
-                setLoadingAnimation(loadingData);
-                setSectionsData(appData.sections || []);
+                if (cancelled) return;
+                const sections = appData.sections || [];
+                const bgUrls = sections
+                    .filter((s) => s.bg)
+                    .map((s) => `${APIURL}files/${s.bg}`);
+
+                return Promise.all(bgUrls.map(preloadImage)).then(() => {
+                    if (cancelled) return;
+                    setSectionsData(sections);
+                    setIsAppReady(true);
+                });
             })
-            .catch(console.error);
+            .catch((error) => {
+                console.error(error);
+                if (!cancelled) {
+                    setIsAppReady(true);
+                }
+            });
+
+        return () => {
+            cancelled = true;
+        };
     }, []);
+
+    if (!isAppReady) {
+        return (
+            <div className="dashboard-loading-screen">
+                <div className="dashboard-loading-card">
+                    <div className="loader-dot"></div>
+                    <div className="loader-dot"></div>
+                    <div className="loader-dot"></div>
+                    <p>Preparing portfolio...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="app">
             <Navbar
@@ -73,11 +114,10 @@ const Dashboard = () => {
                 activeSection={activeSection}
                 sectionsRef={sectionsRef}
                 sectionsData={sectionsData}
-                loadingAnimation={loadingAnimation}
             />
             <Footer />
         </div>
-    )
-}
+    );
+};
 
 export default Dashboard
