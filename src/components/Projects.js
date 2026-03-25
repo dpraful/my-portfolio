@@ -39,11 +39,12 @@ const Projects = () => {
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ scale: 1.05 }}
               onClick={() =>
-                navigate("/project", {
+                navigate("/details", {
                   state: {
                     name: project.name,
                     color: project.color,
                     jsonUrl: project.url,
+                    icon: project.icon,
                   },
                 })
               }

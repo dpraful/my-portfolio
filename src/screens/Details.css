@@ -242,3 +242,66 @@
   font-size: 24px;
   cursor: pointer;
 }
+
+.external-link {
+  display: inline-block;
+  padding: 10px 14px;
+  background: #1e293b;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.external-link:hover {
+  background: #334155;
+}
+
+.fallback-icon {
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* ✨ Glass effect */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  /* ✨ Soft border */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  /* ✨ iOS rounded look */
+  border-radius: 20px;
+
+  /* ✨ Text */
+  color: #fff;
+
+  /* ✨ Depth */
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fallback-icon p {
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: 0.85;
+  letter-spacing: 0.3px;
+}
+
+/* ✨ Hover (iOS floating feel) */
+.fallback-icon:hover {
+  transform: translateY(-4px) scale(1.02);
+
+  background: rgba(255, 255, 255, 0.12);
+
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}

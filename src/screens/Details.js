@@ -2,10 +2,37 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Icons from "../Common/Icons";
-import "./ProjectDetails.css";
+import "./Details.css";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 
-const ProjectDetails = () => {
+const ImageWithFallback = ({ item, setPreviewImage ,state}) => {
+  const [error, setError] = useState(false);
+
+  const LinkIcon = Icons[state.icon];
+  return (
+    <div className="image-wrapper">
+      {!error ? (
+        <img
+          src={item.url}
+          alt={item.title}
+          onClick={() => setPreviewImage(item.url)}
+          onError={() => setError(true)}
+          style={{ cursor: "pointer" }}
+        />
+      ) : (
+        <div
+          className="fallback-icon"
+          onClick={() => window.open(item.url, "_blank")}
+        >
+          {LinkIcon && <LinkIcon size={60} color={state.color} />}
+          <p>Open Link</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const Details = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
@@ -30,6 +57,7 @@ const ProjectDetails = () => {
       .finally(() => setLoading(false));
   }, [state]);
 
+  // 🔹 Close preview on ESC
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") setPreviewImage(null);
@@ -104,12 +132,11 @@ const ProjectDetails = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.12 }}
             >
-              <div
-                className="image-wrapper"
-                onClick={() => setPreviewImage(item.url)}
-              >
-                <img src={item.url} alt={item.title} />
-              </div>
+              <ImageWithFallback
+                item={item}
+                setPreviewImage={setPreviewImage}
+                state={state}
+              />
 
               <div className="screen-info">
                 <h3>
@@ -156,4 +183,4 @@ const ProjectDetails = () => {
   );
 };
 
-export default ProjectDetails;
+export default Details;

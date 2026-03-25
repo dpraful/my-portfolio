@@ -1,107 +1,99 @@
-.achievements {
+.projects {
   text-align: center;
   padding: 4rem 2rem;
   background: url("https://source.unsplash.com/1600x900/?technology,coding") no-repeat center center/cover;
   color: white;
 }
 
-.achievements h2 {
+.projects h2 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
   color: #ffcc00;
 }
 
-.achievements-section {
-  padding: 20px;
-}
-
-.loading-text {
-  text-align: center;
-  font-size: 1.1rem;
-  color: #555;
-}
-
-/* 5 columns × 3 rows grid */
-.achievements-table {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: 150px;
-  /* fixed row height */
+/* Project Container */
+.projects-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 }
 
-/* Each achievement card */
-.achievement-card {
-  background: rgba(255, 255, 255, 0.08);
-  /* Transparent glass effect */
+/* Project Card */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08); /* Transparent glass effect */
+  backdrop-filter: blur(15px); /* Smooth blur effect */
+  width: 300px;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: white;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(15px);
-  /* Smooth blur effect */
-  border-radius: 8px;
-  padding: 8px;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.achievement-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+.project-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.4); /* Soft glowing effect */
+  border: 1px solid #ffcc00;
+  background: rgba(255, 255, 255, 0.12); /* Slightly more visible on hover */
 }
 
-.image-wrapper img {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 6px;
+/* Project Icons */
+.icon-container {
+  font-size: 3rem;
+  color: #ffcc00;
+  margin-bottom: 1rem;
+  opacity: 0.7; /* Transparent effect */
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.achievement-info h4 {
+.project-card:hover .icon-container {
+  opacity: 1;
+  transform: scale(1.1);
+  filter: drop-shadow(0px 0px 10px rgba(255, 204, 0, 0.5)); /* Glowing effect */
+}
+
+/* Project Titles */
+.project-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.tag {
+  background: rgba(255, 204, 0, 0.8); /* Semi-transparent tag */
+  color: black;
   font-size: 0.9rem;
-  margin-top: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  word-break: break-word;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out;
 }
 
-/* Full Image Preview */
-.image-preview-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+.tag:hover {
+  background: rgba(255, 204, 0, 1);
+  box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.6);
 }
 
-.image-preview-content {
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-}
-
-.image-preview-content img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.close-btn {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background: #fff;
-  border: none;
-  border-radius: 50%;
-  padding: 6px 8px;
-  cursor: pointer;
-  font-size: 1.2rem;
+/* Responsive */
+@media (max-width: 768px) {
+  .projects-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }

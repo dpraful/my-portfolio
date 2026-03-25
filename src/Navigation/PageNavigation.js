@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "../screens/Dashboard";
-import ProjectDetails from "../screens/ProjectDetails";
+import Details from "../screens/Details";
 
 function PageNavigation() {
   return (
       <Routes>
         <Route path="/" element={<Dashboard/>}/>
-        <Route path="/project" element={<ProjectDetails/>} />
+        <Route path="/details" element={<Details/>} />
       </Routes>
   );
 }

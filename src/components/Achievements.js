@@ -1,101 +1,75 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Icons from "../Common/Icons";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import "./styles/Achievements.css";
-import { networkServiceCall } from "../Common/NetworkServiceCall";
+import Icons from "../Common/Icons";
 import { APIURL } from "../Common/Global";
+import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 const Achievements = () => {
-  const [project, setProject] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [previewImage, setPreviewImage] = useState(null);
+  const [projects, setProjects] = useState([]);
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
-  const CloseIcon = Icons["FaTimes"];
-
-  // 🔹 Fetch project data
   useEffect(() => {
-    setLoading(true);
     networkServiceCall(`${APIURL}json/Achievements.json`)
-      .then((data) => setProject(data))
-      .catch((err) => console.error("Error loading project data:", err))
-      .finally(() => setLoading(false));
+      .then(setProjects)
+      .catch(err => {
+        console.error("Achievements fetch error:", err);
+        setError(true);
+      });
   }, []);
 
-  // 🔹 Close image preview on ESC
-  useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === "Escape") setPreviewImage(null);
-    };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, []);
-
-  // 🔹 Limit to 5 columns × 3 rows (15 items)
-  const displayedAchievements = project?.imageurl?.slice(0, 15) || [];
+  if (error || !projects.length) return null;
 
   return (
-    <section className="achievements">
-      <h2>Achievements</h2>
-      {loading && <p className="loading-text">Loading achievements...</p>}
+    <section className="projects">
+      <h2>My Achievements</h2>
 
-      {/* 5 columns × 3 rows grid */}
-      <div className="achievements-table">
-        {displayedAchievements.map((item, index) => {
-          const IconComponent = Icons[item.icon];
+      <div className="projects-container">
+        {projects.map((project, index) => {
+          const IconComponent = Icons[project.icon];
 
           return (
             <motion.div
               key={index}
-              className="achievement-card"
-              initial={{ opacity: 0, y: 20 }}
+              className="project-card"
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              whileHover={{ scale: 1.05 }}
+              onClick={() =>
+                navigate("/details", {
+                  state: {
+                    name: project.name,
+                    color: project.color,
+                    jsonUrl: project.url,
+                    icon: project.icon,
+                  },
+                })
+              }
             >
-              <div
-                className="image-wrapper"
-                onClick={() => setPreviewImage(item.url)}
-              >
-                <img src={item.url} alt={item.title} />
+              <div className="icon-container">
+                {IconComponent && (
+                  <IconComponent
+                    style={{ fontSize: "30px", color: project.color }}
+                  />
+                )}
               </div>
-              <div className="achievement-info">
-                <h5>
-                  {IconComponent ? <IconComponent /> : null} {item.title}
-                </h5>
+
+              <div className="project-info">
+                <h3>{project.name}</h3>
+
+                <div className="tags">
+                  {project.tags.map((tag, i) => (
+                    <span key={i} className="tag">{tag}</span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           );
         })}
       </div>
-
-      {/* Full Image Preview */}
-      <AnimatePresence>
-        {previewImage && (
-          <motion.div
-            className="image-preview-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setPreviewImage(null)}
-          >
-            <motion.div
-              className="image-preview-content"
-              initial={{ scale: 0.85 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.85 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                className="close-btn"
-                onClick={() => setPreviewImage(null)}
-              >
-                {CloseIcon ? <CloseIcon /> : "Close"}
-              </button>
-
-              <img src={previewImage} alt="Preview" />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
