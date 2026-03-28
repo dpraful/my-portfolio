@@ -105,9 +105,7 @@ const Dashboard = () => {
                 activeSection={activeSection}
                 sections={sectionsData.filter((s) => s.enabled !== false)}
             />
-            <CDetailView
-                sectionsRef={sectionsRef}
-                sectionsData={sectionsData}>
+            <CDetailView>
                 <WrappedComponent
                     scrollToSection={scrollToSection}
                     activeSection={activeSection}
