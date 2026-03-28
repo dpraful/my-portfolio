@@ -74,9 +74,10 @@ const Details = () => {
 
   return (
     <CDetailView>
-      <section className="project-details">
-        {/* Header */}
-        <div className="project-header">
+      <div className="details-scroll">
+        <section className="project-details">
+          {/* Header */}
+          <div className="project-header">
           <h2 style={{ color: state.color }}>{state.name}</h2>
 
           <button className="back-btn" onClick={() => navigate(-1)}>
@@ -184,7 +185,8 @@ const Details = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </section>
+        </section>
+      </div>
     </CDetailView>
   );
 };
