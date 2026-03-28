@@ -19,11 +19,6 @@ const Footer = () => {
       });
   }, []);
 
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   if (error || !footerData) return null;
 
   const { name, location, email, socials } = footerData;
@@ -65,19 +60,6 @@ const Footer = () => {
             );
           })}
         </div>
-
-        {/* Back to Top */}
-        <button
-          className="back-to-top"
-          onClick={scrollToTop}
-          aria-label="Back to top"
-        >
-          {(() => {
-            const IconComponent =
-              Icons.FaArrowUp
-            return <IconComponent size={18} />;
-          })()}
-        </button>
       </div>
     </footer>
   );

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
-import Icons from "../Common/Icons"
 import "./styles/Contact.css";
 import { APIURL } from "../Common/Global";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
-
+import Footer from "../components/Footer";
 
 const Contact = () => {
   const [contactData, setContactData] = useState(null);
@@ -36,7 +35,7 @@ const Contact = () => {
 
   if (error || !contactData) return null;
 
-  const { title, subtitle, contacts, form } = contactData;
+  const { title, subtitle, form } = contactData;
 
   return (
     <section className="contact">
@@ -57,40 +56,6 @@ const Contact = () => {
       >
         {subtitle}
       </motion.p>
-
-      {/* Contact Info */}
-      <motion.div
-        className="contact-info"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        {contacts.map((item, index) => {
-          const IconComponent = Icons[item.icon];
-
-          if (!IconComponent) {
-            console.warn(`Icon not found: ${item.icon}`);
-            return null;
-          }
-
-          return (
-            <a
-              key={index}
-              href={item.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-item"
-            >
-              <IconComponent
-                size={item.size || 20}
-                color={item.color || "#000"}
-                style={{ marginRight: 8 }}
-              />
-              {item.label}
-            </a>
-          );
-        })}
-      </motion.div>
 
       {/* Contact Form */}
       <motion.form
@@ -141,6 +106,7 @@ const Contact = () => {
           {form.submitText}
         </motion.button>
       </motion.form>
+      <Footer />
     </section>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import { APIURL } from "../Common/Global";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 import { WrappedComponent } from "../Navigation/WrappedComponent";
@@ -116,7 +115,6 @@ const Dashboard = () => {
                     sectionsData={sectionsData}
                 />
             </CDetailView>
-            <Footer />
         </div>
     );
 };

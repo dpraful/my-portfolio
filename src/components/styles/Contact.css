@@ -61,10 +61,10 @@
 /* Contact Form */
 .contact-form {
   width: 100%;
-  max-width: 500px;
+  max-width: 420px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
   display: flex;
@@ -75,15 +75,20 @@
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 1rem;
+  padding: 8px;
+  margin-bottom: 0.75rem;
   border: none;
   border-radius: 5px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   outline: none;
   background: rgba(255, 255, 255, 0.2);
   color: white;
   transition: 0.3s;
+  box-sizing: border-box;
+}
+
+.contact-form textarea {
+  min-height: 100px;
 }
 
 .contact-form input::placeholder,
@@ -97,8 +102,8 @@
 }
 
 .contact-form button {
-  padding: 12px;
-  font-size: 1.2rem;
+  padding: 10px;
+  font-size: 1rem;
   color: white;
   background: #ffcc00;
   border: none;
