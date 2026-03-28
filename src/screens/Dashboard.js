@@ -6,6 +6,7 @@ import { networkServiceCall } from "../Common/NetworkServiceCall";
 import { WrappedComponent } from "../Navigation/WrappedComponent";
 import "./Dashboard.css";
 import HView from "../Common/HView";
+import CDetailView from "../Common/CDetailView";
 
 const Dashboard = () => {
     const sectionsRef = useRef([]);
@@ -22,40 +23,38 @@ const Dashboard = () => {
 
     /* Scroll to Section */
     const scrollToSection = (index) => {
-        if (sectionsRef.current[index]) {
-            sectionsRef.current[index].scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-            });
-        }
+        setActiveSection(index);
     };
 
-    /* Detect Active Section */
+    /* Switch active section on wheel scroll */
     useEffect(() => {
-        const handleScroll = () => {
-            let currentIndex = sectionsRef.current.length - 1;
+        const enabledSections = sectionsData.filter((section) => section.enabled !== false);
+        let isThrottled = false;
 
-            while (currentIndex >= 0) {
-                const section = sectionsRef.current[currentIndex];
-                if (section) {
-                    const rect = section.getBoundingClientRect();
-                    if (
-                        rect.top <= window.innerHeight / 2 &&
-                        rect.bottom >= 0
-                    ) {
-                        if (activeSection !== currentIndex) {
-                            setActiveSection(currentIndex);
-                        }
-                        break;
-                    }
-                }
-                currentIndex--;
+        const handleWheel = (event) => {
+            if (isThrottled || enabledSections.length <= 1) {
+                return;
             }
+
+            const delta = event.deltaY;
+            if (Math.abs(delta) < 30) {
+                return;
+            }
+
+            setActiveSection((prevIndex) => {
+                const nextIndex = delta > 0 ? prevIndex + 1 : prevIndex - 1;
+                return Math.max(0, Math.min(nextIndex, enabledSections.length - 1));
+            });
+
+            isThrottled = true;
+            window.setTimeout(() => {
+                isThrottled = false;
+            }, 600);
         };
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [activeSection]);
+        window.addEventListener("wheel", handleWheel, { passive: true });
+        return () => window.removeEventListener("wheel", handleWheel);
+    }, [sectionsData]);
 
     /* Load Backend Data and preload backgrounds */
     useEffect(() => {
@@ -107,12 +106,16 @@ const Dashboard = () => {
                 activeSection={activeSection}
                 sections={sectionsData.filter((s) => s.enabled !== false)}
             />
-            <WrappedComponent
-                scrollToSection={scrollToSection}
-                activeSection={activeSection}
+            <CDetailView
                 sectionsRef={sectionsRef}
-                sectionsData={sectionsData}
-            />
+                sectionsData={sectionsData}>
+                <WrappedComponent
+                    scrollToSection={scrollToSection}
+                    activeSection={activeSection}
+                    sectionsRef={sectionsRef}
+                    sectionsData={sectionsData}
+                />
+            </CDetailView>
             <Footer />
         </div>
     );

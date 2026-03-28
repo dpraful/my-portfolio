@@ -1,7 +1,5 @@
 .experience {
   position: relative;
-  height: auto;
-  min-height: 100vh;
   background: url("https://source.unsplash.com/1600x900/?business,technology") no-repeat center center/cover;
   display: flex;
   flex-direction: column;
@@ -16,7 +14,6 @@
   font-size: 2.8rem;
   font-weight: bold;
   color: #ffcc00;
-  margin-bottom: 2rem;
   animation: fadeIn 1.5s ease-in-out;
 }
 

@@ -1,6 +1,5 @@
 .contact {
   position: relative;
-  min-height: 100vh;
   background: url("https://source.unsplash.com/1600x900/?contact,technology") no-repeat center center/cover;
   display: flex;
   flex-direction: column;
@@ -22,7 +21,6 @@
 .contact p {
   font-size: 1.2rem;
   max-width: 600px;
-  margin-bottom: 2rem;
   opacity: 0.9;
 }
 
@@ -66,7 +64,7 @@
   max-width: 500px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
   display: flex;
@@ -77,7 +75,7 @@
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   margin-bottom: 1rem;
   border: none;
   border-radius: 5px;
