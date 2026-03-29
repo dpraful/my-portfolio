@@ -6,12 +6,11 @@ import { WrappedComponent } from "../Navigation/WrappedComponent";
 import "./Dashboard.css";
 import HView from "../Common/HView";
 import CDetailView from "../Common/CDetailView";
+import { useDataContext } from "../Handlers/portfolioContext";
 
 const Dashboard = () => {
     const sectionsRef = useRef([]);
-    const [activeSection, setActiveSection] = useState(0);
-    const [sectionsData, setSectionsData] = useState([]);
-    const [isAppReady, setIsAppReady] = useState(false);
+    const { activeSection, setActiveSection, sectionsData, setSectionsData, isAppReady, setIsAppReady } = useDataContext();
     const touchStartYRef = useRef(null);
 
     const preloadImage = (url) =>
