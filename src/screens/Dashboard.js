@@ -12,6 +12,7 @@ const Dashboard = () => {
     const [activeSection, setActiveSection] = useState(0);
     const [sectionsData, setSectionsData] = useState([]);
     const [isAppReady, setIsAppReady] = useState(false);
+    const touchStartYRef = useRef(null);
 
     const preloadImage = (url) =>
         new Promise((resolve) => {
@@ -51,8 +52,48 @@ const Dashboard = () => {
             }, 600);
         };
 
+        const handleTouchStart = (event) => {
+            touchStartYRef.current = event.touches[0]?.clientY;
+        };
+
+        const handleTouchMove = (event) => {
+            if (isThrottled || enabledSections.length <= 1 || touchStartYRef.current === null) {
+                return;
+            }
+
+            const currentY = event.touches[0]?.clientY;
+            const delta = touchStartYRef.current - currentY;
+            if (Math.abs(delta) < 60) {
+                return;
+            }
+
+            setActiveSection((prevIndex) => {
+                const nextIndex = delta > 0 ? prevIndex + 1 : prevIndex - 1;
+                return Math.max(0, Math.min(nextIndex, enabledSections.length - 1));
+            });
+
+            isThrottled = true;
+            touchStartYRef.current = currentY;
+            window.setTimeout(() => {
+                isThrottled = false;
+            }, 600);
+        };
+
+        const handleTouchEnd = () => {
+            touchStartYRef.current = null;
+        };
+
         window.addEventListener("wheel", handleWheel, { passive: true });
-        return () => window.removeEventListener("wheel", handleWheel);
+        window.addEventListener("touchstart", handleTouchStart, { passive: true });
+        window.addEventListener("touchmove", handleTouchMove, { passive: true });
+        window.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+        return () => {
+            window.removeEventListener("wheel", handleWheel);
+            window.removeEventListener("touchstart", handleTouchStart);
+            window.removeEventListener("touchmove", handleTouchMove);
+            window.removeEventListener("touchend", handleTouchEnd);
+        };
     }, [sectionsData]);
 
     /* Load Backend Data and preload backgrounds */
