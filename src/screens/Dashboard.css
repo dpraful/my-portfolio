@@ -178,11 +178,16 @@ body {
 @media (max-width: 1024px) {
   .navbar {
     padding: 15px 20px;
+    left: 0;
+    right: 0;
   }
   .nav-items {
     display: none;
   }
   .mobile-menu-icon {
+    display: block;
+  }
+  .mobile-menu-icon button {
     display: block;
   }
   .section {
@@ -199,9 +204,13 @@ body {
   }
   .logo {
     font-size: 20px;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .mobile-menu {
-    width: 200px;
+    width: min(260px, 100vw);
   }
   .mobile-menu-item {
     font-size: 18px;

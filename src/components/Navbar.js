@@ -63,30 +63,48 @@ function Navbar({ scrollToSection, activeSection }) {
       {/* Animated Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ duration: 0.3 }}
-            className="mobile-menu"
-          >
-            <div className="mobile-menu-content">
-              {enabledSections.map((section, index) => (
-                <motion.button
-                  key={section.name}
-                  onClick={() => {
-                    scrollToSection(index);
-                    setTimeout(() => setMenuOpen(false), 400);
-                  }}
-                  className={`mobile-menu-item ${activeSection === index ? "active" : ""
-                    }`}
-                  whileHover={{ scale: 1.1 }}
+          <>
+            <motion.div
+              className="menu-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.3 }}
+              className="mobile-menu"
+            >
+              <div className="mobile-menu-header">
+                <button
+                  className="mobile-menu-close"
+                  onClick={() => setMenuOpen(false)}
+                  aria-label="Close menu"
                 >
-                  {section.name}
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
+                  <X size={26} />
+                </button>
+              </div>
+              <div className="mobile-menu-content">
+                {enabledSections.map((section, index) => (
+                  <motion.button
+                    key={section.name}
+                    onClick={() => {
+                      scrollToSection(index);
+                      setTimeout(() => setMenuOpen(false), 400);
+                    }}
+                    className={`mobile-menu-item ${activeSection === index ? "active" : ""}`}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {section.name}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>

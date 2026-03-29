@@ -65,7 +65,7 @@ const Experience = () => {
                 {IconComponent && (
                   <IconComponent
                     size={20}
-                    color={exp.iconColor || "#333"}
+                    color={exp.color || "#333"}
                   />
                 )}
               </div>
