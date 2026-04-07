@@ -19,8 +19,6 @@ function Model({ url }) {
 }
 
 export default function Model3D({ Data }) {
-    console.log("Config:", Data);
-
     if (!Data) return null;
 
     return (

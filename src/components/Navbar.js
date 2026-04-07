@@ -35,8 +35,16 @@ function Navbar({ scrollToSection, activeSection }) {
 
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+
       {/* Logo */}
-      <div className="logo">{data.logo}</div>
+      <div className="logo">
+        <img
+          src={`${APIURL}files/favicon.ico`}
+          alt="Logo"
+          className="logo-image"
+        />
+        {data.logo}
+      </div>
 
       {/* Desktop Navigation */}
       <div className="nav-items">
