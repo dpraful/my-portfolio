@@ -6,12 +6,12 @@ import {
     useGLTF,
     Bounds
 } from "@react-three/drei";
-import { Suspense, useEffect } from "react";
+import { Suspense, useLayoutEffect } from "react";
 
 function Model({ url }) {
     const { scene } = useGLTF(url);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         useGLTF.preload(url);
     }, [url]);
 

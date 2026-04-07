@@ -145,7 +145,7 @@ const Dashboard = () => {
                 activeSection={activeSection}
                 sections={sectionsData.filter((s) => s.enabled !== false)}
             />
-            <CDetailView>
+            <CDetailView src={sectionsData[activeSection]?.bg}>
                 <WrappedComponent
                     scrollToSection={scrollToSection}
                     activeSection={activeSection}
