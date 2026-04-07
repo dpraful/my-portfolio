@@ -1,5 +1,4 @@
 import React from 'react';
-import Hero from '../components/Hero';
 import About from '../components/About';
 import Skills from '../components/Skills';
 import Experience from '../components/Experience';
@@ -11,7 +10,6 @@ import Splash from '../components/Splash';
 
 function HView(props) {
     const components = {
-        Hero: Hero,
         About: About,
         Skills: Skills,
         Experience: Experience,

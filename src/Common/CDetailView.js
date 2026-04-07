@@ -4,7 +4,8 @@ import { APIURL } from "./Global";
 const CDetailView = ({ src, children }) => {
     const [loaded, setLoaded] = useState(false);
 
-    const imageUrl = `${APIURL}files/${src}`;
+    const fileUrl = `${APIURL}files/${src?.bg}`;
+    const videoUrl = `${APIURL}files/${src?.video}`;
 
     return (
         <div className="sections">
@@ -16,26 +17,48 @@ const CDetailView = ({ src, children }) => {
                     backgroundColor: "black",
                 }}
             >
-                {/* Image */}
-                <img
-                    src={imageUrl}
-                    alt=""
-                    loading="lazy" // 🔥 native lazy loading
-                    onLoad={() => setLoaded(true)}
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        filter: loaded ? "blur(0px)" : "blur(15px)",
-                        transform: loaded ? "scale(1)" : "scale(1.1)",
-                        transition: "all 0.5s ease",
-                    }}
-                />
+                {/* MEDIA (Image / Video) */}
+                {videoUrl? (
+                    <video
+                        src={videoUrl}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        onCanPlay={() => setLoaded(true)}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            filter: loaded ? "blur(0px)" : "blur(15px)",
+                            transform: loaded ? "scale(1)" : "scale(1.1)",
+                            transition: "all 0.5s ease",
+                        }}
+                    />
+                ) : (
+                    <img
+                        src={fileUrl}
+                        alt=""
+                        loading="lazy"
+                        onLoad={() => setLoaded(true)}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            filter: loaded ? "blur(0px)" : "blur(15px)",
+                            transform: loaded ? "scale(1)" : "scale(1.1)",
+                            transition: "all 0.5s ease",
+                        }}
+                    />
+                )}
 
-                {/* Content */}
+                {/* CONTENT */}
                 <div
                     style={{
                         position: "relative",
