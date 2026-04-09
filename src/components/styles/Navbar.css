@@ -239,13 +239,13 @@
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .navbar {
     padding: 12px 16px;
   }
 
   .nav-items {
-    display: none;
+    display: none !important;
   }
 
   .mobile-menu-icon {
@@ -258,5 +258,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .nav-items {
+    display: flex;
+  }
+
+  .mobile-menu-icon {
+    display: none;
   }
 }
