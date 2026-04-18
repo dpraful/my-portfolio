@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./styles/Footer.css";
-import { APIURL } from "../Common/Global";
+import { APIURL } from "../Common//apiConstants";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import "./styles/Navbar.css";
-import { APIURL } from "../Common/Global";
+import { APIURL } from "../Common//apiConstants";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 function Navbar({ scrollToSection, activeSection }) {

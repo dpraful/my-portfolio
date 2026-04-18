@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { APIURL } from "./Global";
+import { APIURL } from "./apiConstants";
 
 const CDetailView = ({ src, children }) => {
     const [loaded, setLoaded] = useState(false);

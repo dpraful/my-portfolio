@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles/Education.css";
 import Icons from "../Common/Icons";
-import { APIURL } from "../Common/Global";
+import { APIURL } from "../Common//apiConstants";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 
 const Education = () => {

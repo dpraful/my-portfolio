@@ -5,4 +5,3 @@ export class Global {
   static Url = `${this.user}/${this.repo}/main/`;
 }
 
-export const APIURL = `https://${Global.ipAddress}/${Global.Url}`;

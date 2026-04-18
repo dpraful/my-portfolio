@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { APIURL } from "../Common/Global";
+import { APIURL } from "../Common//apiConstants";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 import { WrappedComponent } from "../Navigation/WrappedComponent";
 import "./Dashboard.css";

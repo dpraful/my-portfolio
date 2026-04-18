@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import "./styles/About.css";
-import { APIURL } from "../Common/Global";
+import { APIURL } from "../Common//apiConstants";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 import Icons from "../Common/Icons";
 import Model3D from "../Common/3Dmodel";
