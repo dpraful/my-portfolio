@@ -1,17 +1,22 @@
+:root {
+  --accent: #ffcc00;
+}
+
+/* Section */
 .skills {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 4rem 2rem; /* keep desktop */
   background: url("https://source.unsplash.com/1600x900/?technology,coding") no-repeat center center/cover;
   color: white;
 }
 
 .skills h2 {
-  font-size: 2.5rem;
+  font-size: 2.5rem; /* keep desktop */
   margin-bottom: 2rem;
-  color: #ffcc00;
+  color: var(--accent);
 }
 
-/* Skills Container */
+/* ===== DESKTOP (UNCHANGED) ===== */
 .skills-container {
   display: flex;
   flex-wrap: wrap;
@@ -24,11 +29,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(255, 255, 255, 0.08); /* Glassmorphic transparency */
-  backdrop-filter: blur(12px); /* Frosted glass effect */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
   padding: 1rem;
   border-radius: 12px;
-  width: 180px;
+  width: 180px; /* keep fixed desktop size */
   transition: all 0.3s ease-in-out;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -37,20 +42,15 @@
 .skill-card:hover {
   transform: scale(1.08);
   box-shadow: 0 4px 20px rgba(255, 204, 0, 0.4);
-  border: 1px solid #ffcc00;
+  border: 1px solid var(--accent);
 }
 
-/* Skill Icons */
+/* Icon */
 .skill-icon {
   font-size: 3rem;
-  color: #ffcc00;
+  color: var(--accent);
   margin-bottom: 0.5rem;
   filter: drop-shadow(0px 0px 5px rgba(255, 204, 0, 0.5));
-  transition: transform 0.3s ease-in-out;
-}
-
-.skill-card:hover .skill-icon {
-  transform: scale(1.1);
 }
 
 /* Progress Bar */
@@ -79,10 +79,37 @@
   }
 }
 
-/* Responsive */
+/* ===== MOBILE ONLY (OVERRIDE) ===== */
 @media (max-width: 768px) {
+
+  /* switch to grid ONLY on mobile */
   .skills-container {
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 per row */
+    gap: 12px;
+  }
+
+  .skill-card {
+    width: 100%; /* override fixed 180px */
+    padding: 5px;
+  }
+
+  .skill-icon {
+    font-size: 1.8rem;
+  }
+
+  .skills h2 {
+    font-size: 2rem;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .skills-container {
+    grid-template-columns: repeat(3, 1fr); /* still 3 */
+  }
+
+  .skill-icon {
+    font-size: 1.5rem;
   }
 }
