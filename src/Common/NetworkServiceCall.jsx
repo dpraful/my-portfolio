@@ -9,7 +9,7 @@ export const networkServiceCall = async (url, options = {}) => {
       },
       ...options,
     });
-
+    console.log('Response :', JSON.stringify(response))
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(

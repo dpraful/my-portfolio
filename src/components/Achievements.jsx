@@ -61,8 +61,10 @@ const Achievements = () => {
                 <h3>{project.name}</h3>
 
                 <div className="tags">
-                  {project.tags.map((tag, i) => (
-                    <span key={i} className="tag">{tag}</span>
+                  {project.tags.map(tag => (
+                    <span className="tag" key={tag.id}>
+                      {tag.tag}
+                    </span>
                   ))}
                 </div>
               </div>

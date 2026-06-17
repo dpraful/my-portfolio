@@ -75,7 +75,7 @@ const About = (props) => {
         {/* Typing Animation */}
         <p className="subtitle">
           <Typewriter
-            words={roles}
+            words={roles?.map(item => item.role) || []} 
             loop
             cursor
             cursorStyle="|"
