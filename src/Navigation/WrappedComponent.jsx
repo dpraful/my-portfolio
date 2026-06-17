@@ -7,7 +7,7 @@ export function WrappedComponent({
     activeSection,
 }) {
     const visibleSections = sectionsData.filter((section) => section.enabled !== false);
-    const section = visibleSections[activeSection] || visibleSections[0];
+    const section = visibleSections[activeSection];
 
     if (!section) {
         return null;

@@ -8,7 +8,7 @@ import HView from "../Common/HView";
 import CDetailView from "../Common/CDetailView";
 import { useDataContext } from "../Handlers/portfolioContext";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
     const sectionsRef = useRef([]);
     const { activeSection, setActiveSection, sectionsData, setSectionsData, isAppReady, setIsAppReady } = useDataContext();
     const touchStartYRef = useRef(null);
@@ -131,6 +131,11 @@ const Dashboard = () => {
             cancelled = true;
         };
     }, []);
+
+    /* Update active section when route changes */
+    useEffect(() => {
+        setActiveSection(props?.data ?? 0);
+    }, [props?.data, setActiveSection]);
 
     if (!isAppReady) {
         return (
