@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Icons from "../Common/Icons";
@@ -34,7 +34,7 @@ const ImageWithFallback = ({ item, setPreviewImage, state }) => {
 };
 
 const Details = () => {
-  const { state } = useLocation();
+  const { pathname, search, state: locationState } = useLocation();
   const navigate = useNavigate();
 
   const [project, setProject] = useState(null);
@@ -46,21 +46,47 @@ const Details = () => {
   const GitHubIcon = Icons["FaGithub"];
   const DemoIcon = Icons["FaExternalLinkAlt"];
   const CloseIcon = Icons["FaTimes"];
-  const { activeSection,sectionsData} = useDataContext();
+  const { activeSection, sectionsData } = useDataContext();
+
+  // Extract JSON URL from pathname - memoized to prevent infinite loop
+  const stateData = useMemo(() => {
+    if (locationState) {
+      return locationState;
+    }
+
+    const pathMatch = pathname.match(/\/details\/(.+)/);
+
+    if (pathMatch) {
+      const jsonUrl = decodeURIComponent(pathMatch[1]);
+
+      const projectName =
+        jsonUrl.split("/").pop()?.replace(".json", "").toUpperCase() ||
+        "PROJECT";
+
+      return {
+        name: projectName,
+        color: "white",
+        jsonUrl,
+      };
+    }
+
+    return null;
+  }, [pathname, locationState]);
 
   // 🔹 Fetch project data
   useEffect(() => {
-    if (!state?.jsonUrl) return;
+    console.log('wwwwwwwwwwwwwwwwww', JSON.stringify(stateData))
+    if (!stateData?.jsonUrl) return;
 
     setLoading(true);
 
-    networkServiceCall(state.jsonUrl)
+    networkServiceCall(stateData.jsonUrl)
       .then(setProject)
       .catch((err) =>
         console.error("Error loading project data:", err)
       )
       .finally(() => setLoading(false));
-  }, [state]);
+  }, [stateData]);
 
   // 🔹 Close preview on ESC
   useEffect(() => {
@@ -71,7 +97,7 @@ const Details = () => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
-  if (!state) return null;
+  if (!stateData) return null;
 
   return (
     <CDetailView src={sectionsData[activeSection]}>
@@ -79,7 +105,7 @@ const Details = () => {
         <section className="project-details">
           {/* Header */}
           <div className="project-header">
-            <h2 style={{ color: state.color }}>{state.name}</h2>
+            <h2 style={{ color: stateData.color }}>{stateData.name}</h2>
 
             <button className="back-btn" onClick={() => navigate(-1)}>
               {BackIcon && <BackIcon />}
@@ -142,7 +168,7 @@ const Details = () => {
                   <ImageWithFallback
                     item={item}
                     setPreviewImage={setPreviewImage}
-                    state={state}
+                    state={stateData}
                   />
 
                   <div className="screen-info">

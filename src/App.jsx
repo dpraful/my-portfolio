@@ -5,7 +5,7 @@ import { PortfolioContextProvider } from "./Handlers/portfolioContext";
 function App() {
   return (
     <PortfolioContextProvider>
-      <Router basename="/my-portfolio">
+      <Router basename="/my-portfolio/">
         <PageNavigation />
       </Router>
     </PortfolioContextProvider>
