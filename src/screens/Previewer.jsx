@@ -66,20 +66,6 @@ const Previewer = () => {
 
   return (
     <div className="previewer-container">
-      <div className="previewer-header">
-        <button
-          className="previewer-back-btn"
-          onClick={() => navigate(-1)}
-        >
-          {BackIcon && <BackIcon />}
-          <span>Back</span>
-        </button>
-
-        <h2 className="previewer-title">
-          Document Preview
-        </h2>
-      </div>
-
       {loading ? (
         <div className="previewer-loading">
           Loading...
