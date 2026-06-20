@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "../screens/Dashboard";
 import Details from "../screens/Details";
+import Previewer from "../screens/Previewer";
 
 function PageNavigation() {
   return (
@@ -14,6 +15,7 @@ function PageNavigation() {
       <Route path="/contact" element={<Dashboard data={6} />} />
       <Route path="/details" element={<Details />} />
       <Route path="/details/*" element={<Details />} />
+      <Route path="/previewer/*" element={<Previewer />} />
     </Routes>
   );
 }

@@ -75,7 +75,6 @@ const Details = () => {
 
   // 🔹 Fetch project data
   useEffect(() => {
-    console.log('wwwwwwwwwwwwwwwwww', JSON.stringify(stateData))
     if (!stateData?.jsonUrl) return;
 
     setLoading(true);
