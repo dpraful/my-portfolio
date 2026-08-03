@@ -17,13 +17,13 @@ const About = (props) => {
   useEffect(() => {
     Aos.init({ duration: 1200, once: true });
 
-    networkServiceCall(`${APIURL}json/About.json`)
+    networkServiceCall(`${APIURL}json/${props.name}.json`)
       .then(setAboutData)
       .catch((err) => {
         console.error("About fetch error:", err);
         setError(true);
       });
-  }, []);
+  }, [props.name]);
 
   // Loading
   if (!aboutData && !error) {

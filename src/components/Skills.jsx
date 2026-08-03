@@ -4,32 +4,45 @@ import "./styles/Skills.css";
 import { APIURL } from "../Common//apiConstants";
 import Icons from "../Common/Icons";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
+import { useNavigate } from "react-router-dom";
 
-const Skills = () => {
+const Skills = (props) => {
   const [skills, setSkills] = useState([]);
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   // 🔹 Fetch skills data
   useEffect(() => {
-    networkServiceCall(`${APIURL}json/Skills.json`)
+    networkServiceCall(`${APIURL}json/${props.name}.json`)
       .then(setSkills)
       .catch((err) => {
         console.error("Skills fetch error:", err);
         setError(true);
       });
-  }, []);
+  }, [props.name]);
 
   // 🔹 Redirect handler
-  const handleRedirect = (url) => {
-    if (!url) return;
-    window.open(url, "_blank"); // open in new tab
+  const handleRedirect = (skill) => {
+    if (skill?.detail) {
+      navigate("/details", {
+        state: {
+          name: skill.name,
+          color: skill.color,
+          jsonUrl: skill.url,
+          icon: skill.icon,
+        },
+      })
+    }
+    else {
+      window.open(skill.url, "_blank");
+    }
   };
 
   if (error || !skills.length) return null;
 
   return (
     <section className="skills">
-      <h2>My Skills</h2>
+      <h2>My {props.name}</h2>
 
       <div className="skills-container">
         {skills.map((skill, index) => {
@@ -43,7 +56,7 @@ const Skills = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ scale: 1.08 }}
-              onClick={() => handleRedirect(skill.url)}
+              onClick={() => handleRedirect(skill)}
               style={{ cursor: "pointer" }}
             >
               <div className="skill-icon">
@@ -58,14 +71,12 @@ const Skills = () => {
               </div>
 
               <p>{skill.name}</p>
-
-              <div className="progress-bar">
-                <motion.div
-                  className="progress-fill"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${skill.level}%` }}
-                  transition={{ duration: 1.5, ease: "easeInOut" }}
-                />
+              <div className="tags">
+                {skill?.tags?.map(tag => (
+                  <span className="tag" key={tag.id}>
+                    {tag?.tag}
+                  </span>
+                ))}
               </div>
             </motion.div>
           );

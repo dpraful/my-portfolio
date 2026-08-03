@@ -6,7 +6,7 @@ import { APIURL } from "../Common//apiConstants";
 import { networkServiceCall } from "../Common/NetworkServiceCall";
 import Footer from "../components/Footer";
 
-const Contact = () => {
+const Contact = (props) => {
   const [contactData, setContactData] = useState(null);
   const [error, setError] = useState(false);
 
@@ -18,13 +18,13 @@ const Contact = () => {
   } = useForm();
 
   useEffect(() => {
-    networkServiceCall(`${APIURL}json/Contact.json`)
+    networkServiceCall(`${APIURL}json/${props.name}.json`)
       .then(setContactData)
       .catch(err => {
         console.error("Contact fetch error:", err);
         setError(true);
       });
-  }, []);
+  }, [props.name]);
 
 
   const onSubmit = (data) => {
