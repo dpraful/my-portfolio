@@ -1,13 +1,9 @@
 :root {
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --accent-color: #ff6b6b;
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.8);
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
   --shadow-color: rgba(0, 0, 0, 0.3);
-  --transition-fast: 0.2s ease;
   --transition-smooth: 0.3s ease;
 }
 
@@ -49,13 +45,27 @@
   }
 }
 
-/* Title */
+/* Title - Animated Rainbow Gradient */
 .title {
   font-size: clamp(1.8rem, 4vw, 3.5rem);
   font-weight: 800;
-  background: var(--primary-gradient);
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #0099ff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  background-size: 400% 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rainbowText 8s linear infinite;
 }
 
 /* Subtitle */
@@ -107,12 +117,15 @@
   align-items: center;
   justify-content: center;
   transition: var(--transition-smooth);
+  text-decoration: none;
 }
 
 /* Primary */
 .btn.primary {
-  background: var(--primary-gradient);
-  color: white;
+  background: white;
+  font-weight: bold;
+  font-size: clamp(0.9rem, 1vw, 1.1rem);
+  color: black;
 }
 
 /* Secondary */
@@ -152,5 +165,15 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Animated Rainbow Text */
+@keyframes rainbowText {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 400% 50%;
   }
 }

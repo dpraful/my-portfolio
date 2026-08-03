@@ -75,7 +75,7 @@ const About = (props) => {
         {/* Typing Animation */}
         <p className="subtitle">
           <Typewriter
-            words={roles?.map(item => item.role) || []} 
+            words={roles?.map(item => item.role) || []}
             loop
             cursor
             cursorStyle="|"
@@ -138,8 +138,8 @@ const About = (props) => {
                 href={`${APIURL}files/${resume}`}
                 download="Prafuldas.pdf"
                 className="btn primary"
+                style={{ textDecoration: "none" }}
               >
-                <ResumeIcon size={18} />
                 {resumeButton.label}
               </a>
             </div>
