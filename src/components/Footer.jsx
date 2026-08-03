@@ -30,14 +30,6 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} {name}. All rights reserved.
         </p>
 
-        {/* Contact Info */}
-        <div className="contact-info">
-          <p>
-            Email: <a href={`mailto:${email}`}>{email}</a>
-          </p>
-          <p>Location: {location}</p>
-        </div>
-
         {/* Social Icons */}
         <div className="social-icons">
           {socials.map((social, index) => {

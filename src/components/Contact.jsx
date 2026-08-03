@@ -35,7 +35,7 @@ const Contact = (props) => {
 
   if (error || !contactData) return null;
 
-  const { title, subtitle, form } = contactData;
+  const { title, form } = contactData;
 
   return (
     <section className="contact">
@@ -48,15 +48,6 @@ const Contact = (props) => {
         {title}
       </motion.h2>
 
-      {/* Subtitle */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5 }}
-      >
-        {subtitle}
-      </motion.p>
-
       {/* Contact Form */}
       <motion.form
         className="contact-form"
@@ -66,33 +57,30 @@ const Contact = (props) => {
         transition={{ duration: 1, delay: 0.5 }}
       >
         <div className="input-group">
-          <input
+          <input placeholder="Your Name"
             type="text"
             {...register("name", { required: "Name is required" })}
             required
           />
-          <label>{form.nameLabel}</label>
           {errors.name && <span className="error">{errors.name.message}</span>}
         </div>
 
         <div className="input-group">
-          <input
+          <input placeholder="Your Email"
             type="email"
             {...register("email", { required: "Email is required" })}
             required
           />
-          <label>{form.emailLabel}</label>
           {errors.email && (
             <span className="error">{errors.email.message}</span>
           )}
         </div>
 
         <div className="input-group">
-          <textarea
+          <textarea placeholder="Your Message"
             {...register("message", { required: "Message is required" })}
             required
           />
-          <label>{form.messageLabel}</label>
           {errors.message && (
             <span className="error">{errors.message.message}</span>
           )}

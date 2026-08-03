@@ -31,20 +31,6 @@
   color: #ffaa00;
 }
 
-.contact-info {
-  margin: 10px 0;
-  font-size: 0.9rem;
-}
-
-.contact-info a {
-  color: #ffcc00;
-  text-decoration: none;
-}
-
-.contact-info a:hover {
-  text-decoration: underline;
-}
-
 .social-icons {
   display: flex;
   gap: 15px;

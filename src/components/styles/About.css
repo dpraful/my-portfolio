@@ -49,18 +49,16 @@
 .title {
   font-size: clamp(1.8rem, 4vw, 3.5rem);
   font-weight: 800;
-  background: linear-gradient(
-    90deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #0099ff,
-    #7a00ff,
-    #ff00c8,
-    #ff0000
-  );
+  background: linear-gradient(90deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #0099ff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000);
   background-size: 400% 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -122,10 +120,11 @@
 
 /* Primary */
 .btn.primary {
-  background: white;
+  background: #ffcc00;
   font-weight: bold;
   font-size: clamp(0.9rem, 1vw, 1.1rem);
-  color: black;
+  color: white;
+  border-radius: 50px;
 }
 
 /* Secondary */
@@ -162,6 +161,7 @@
     opacity: 0;
     transform: translateY(2vw);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -173,6 +173,7 @@
   0% {
     background-position: 0% 50%;
   }
+
   100% {
     background-position: 400% 50%;
   }
