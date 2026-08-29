@@ -25,6 +25,32 @@ const About = (props) => {
       });
   }, [props.name]);
 
+  // Calculate experience in completed years
+  const calculateExperience = (joinDate) => {
+    if (!joinDate) {
+      return 0;
+    }
+
+    const [day, month, year] = joinDate.split("/").map(Number);
+
+    const startDate = new Date(year, month - 1, day);
+    const today = new Date();
+
+    let years = today.getFullYear() - startDate.getFullYear();
+
+    // If the joining anniversary has not occurred yet this year,
+    // subtract one year.
+    if (
+      today.getMonth() < startDate.getMonth() ||
+      (today.getMonth() === startDate.getMonth() &&
+        today.getDate() < startDate.getDate())
+    ) {
+      years--;
+    }
+
+    return years;
+  };
+
   // Loading
   if (!aboutData && !error) {
     return <Loader size={50} className="hero-loader" />;
@@ -53,9 +79,13 @@ const About = (props) => {
     experience,
     profileImage,
     socials,
+    joindate,
   } = aboutData;
 
   const ResumeIcon = Icons[resumeButton.icon];
+
+  // Calculate total experience
+  const totalExperience = calculateExperience(joindate);
 
   // Safe split
   const [beforeHighlight, afterHighlight] = subtitle.split(highlight);
@@ -63,10 +93,12 @@ const About = (props) => {
   return (
     <section className="about">
       <div className="overlay">
+
         {/* 3D Model */}
         <div className="model-container">
           {modelData && <Model3D Data={modelData} />}
         </div>
+
         {/* Hero Title */}
         <h1 className="title">
           Hi, I'm <span className="highlight">{name}</span>
@@ -75,7 +107,7 @@ const About = (props) => {
         {/* Typing Animation */}
         <p className="subtitle">
           <Typewriter
-            words={roles?.map(item => item.role) || []}
+            words={roles?.map((item) => item.role) || []}
             loop
             cursor
             cursorStyle="|"
@@ -86,33 +118,56 @@ const About = (props) => {
         </p>
 
         <div className="container">
+
           {/* Profile Image */}
           <motion.div
             className="about-image"
             animate={{ y: [0, -12, 0] }}
-            transition={{ repeat: Infinity, duration: 3 }}
+            transition={{
+              repeat: Infinity,
+              duration: 3,
+            }}
           >
-            <img src={`${APIURL}files/${profileImage}`} alt="Profile" />
+            <img
+              src={`${APIURL}files/${profileImage}`}
+              alt="Profile"
+            />
           </motion.div>
 
           {/* Text */}
           <motion.div
             className="about-text"
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{
+              opacity: 0,
+              x: -40,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            transition={{
+              duration: 0.8,
+            }}
           >
             <h2>{title}</h2>
 
             <p>
               {beforeHighlight}
+
               <span>{highlight}</span>
+
               {afterHighlight}
-              <b data-aos="fade-up">{experience}</b>
+
+              <b data-aos="fade-up">
+                {totalExperience}
+                {experience}
+              </b>
             </p>
 
             {/* Buttons */}
             <div className="buttons">
+
+              {/* Social Buttons */}
               {socials.map((social, index) => {
                 const IconComponent = Icons[social.icon];
 
@@ -133,15 +188,19 @@ const About = (props) => {
                   </a>
                 );
               })}
+
               {/* Resume Button */}
               <a
                 href={`${APIURL}files/${resume}`}
                 download="Prafuldas.pdf"
                 className="btn primary"
-                style={{ textDecoration: "none" }}
+                style={{
+                  textDecoration: "none",
+                }}
               >
                 {resumeButton.label}
               </a>
+
             </div>
           </motion.div>
         </div>
@@ -151,3 +210,4 @@ const About = (props) => {
 };
 
 export default About;
+
