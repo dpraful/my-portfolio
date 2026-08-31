@@ -73,6 +73,19 @@ const Details = () => {
     return null;
   }, [pathname, locationState]);
 
+  const handleBack = () => {
+    try {
+      if (project?.screen) {
+        navigate(`/${project?.screen}`);
+      }
+      else {
+        navigate(-1);
+      }
+    } catch (error) {
+      navigate(-1);
+    }
+  };
+
   // 🔹 Fetch project data
   useEffect(() => {
     if (!stateData?.jsonUrl) return;
@@ -106,9 +119,9 @@ const Details = () => {
           <div className="project-header">
             <h2 style={{ color: stateData.color }}>{stateData.name}</h2>
 
-            <button className="back-btn" onClick={() => navigate(-1)}>
+            <button className="back-btn" onClick={handleBack}>
               {BackIcon && <BackIcon />}
-              <span>Back</span>
+              <span>{project?.screen || 'Back'}</span>
             </button>
           </div>
 

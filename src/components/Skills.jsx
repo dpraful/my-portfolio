@@ -26,10 +26,8 @@ const Skills = (props) => {
     if (skill?.detail) {
       navigate("/details", {
         state: {
-          name: skill.name,
-          color: skill.color,
+          ...skill,
           jsonUrl: skill.url,
-          icon: skill.icon,
         },
       })
     }

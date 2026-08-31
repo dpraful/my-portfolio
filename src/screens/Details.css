@@ -34,11 +34,12 @@
   gap: 6px;
   background: transparent;
   border: none;
-  color: #555;
-  font-size: 0.95rem;
+  color: #fdfcfc;
+  font-size: 1.5rem;
   cursor: pointer;
   padding: 6px 10px;
   transition: all 0.25s ease;
+  font-weight: bold;
 }
 
 .back-btn svg {
